@@ -90,7 +90,7 @@ require './layout/header.php';
             약관 동의하고 계속
         </button>
 
-        <button class="btn btn-outline-secondary w-50 py-2">
+        <button id="btn_cancel" class="btn btn-outline-secondary w-50 py-2">
             취소
         </button>
     </div>

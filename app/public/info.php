@@ -6,8 +6,24 @@
     $menu_code = 'agree';
     $course = isset($_GET['course']) ? (int)$_GET['course'] : 0;
     $course_name = isset($_GET['name']) ? $_GET['name'] : '';
+
+    $agree_rally  = isset($_GET['agree_rally']) && $_GET['agree_rally'] !== '' ? (int)$_GET['agree_rally'] : 0;
+    $agree_info   = isset($_GET['agree_info']) && $_GET['agree_info'] !== '' ? (int)$_GET['agree_info'] : 0;
+    $agree_market = isset($_GET['agree_market']) && $_GET['agree_market'] !== '' ? (int)$_GET['agree_market'] : 0;
+
+    // 필수 값이 없으면 루트로 이동
+    if (!$agree_rally || !$agree_info || !$course) {
+        header("Location: ./");
+        exit;
+    }
+
     require './layout/header.php';    
 ?>
+
+<!-- kakao 우편서비스 -->
+
+<script src="//t1.kakaocdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
 <main class="w-50 mx-auto border rounded-2 p-5">
 
     <h3 class="mb-4 text-center">참가자 정보 입력</h3>
@@ -87,11 +103,32 @@
         </select>
     </div>
 
+            <!-- 우편번호 & 주소 중복 -->
+    <div class="mt-3 d-flex align-items-end gap-2 ">
+        <div >
+            <label for="f_zipcode">우편번호</label>
+            <input type="text" name="zipcode" id="zipcode" readonly class="form-control mt-2" maxlength="5" minlength="5">
+        </div>
+        <button type="button" class="btn btn-secondary"  id="btn_zipcode">우편번호 찾기</button>
+    </div>
+
+    <div class="d-flex gap-2 justify-content-between mt-3 mb-4">
+            <div class="flex-grow-1">
+                <label for="f_adress" class="form-label">주소</label>
+                <input type="text" class="form-control" id="f_adress" name="f_adress">
+            </div>
+
+            <div class="flex-grow-1">
+                <label for="f_adress2" class="form-label">상세 주소</label>
+                <input type="text" class="form-control" id="f_adress2" name="f_adress2" placeholder="상세 주소를 입력해주세요">
+            </div>            
+    </div>
+
     <div class="d-flex gap-2">
         <button type="button" class="btn btn-outline-primary w-50">
             신청 완료
         </button>
-        <button type="button" class="btn btn-outline-secondary w-50">
+        <button type="button" id="btn_cancel" class="btn btn-outline-secondary w-50">
             신청 취소
         </button>
     </div>

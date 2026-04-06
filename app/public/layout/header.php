@@ -20,10 +20,18 @@
 </head>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
 </script>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<style>
+body, input, button, select, textarea {
+    font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+}
+
+</style>
 <?php 
 if(isset($js_array)){
     foreach ($js_array as $var) {
@@ -39,6 +47,9 @@ if(isset($js_array)){
                 <span class="fs-4"><?= $g_title ?></span>
             </a>
             <ul class="nav nav-pills gap-2">
+                 <li class="nav-item">
+                    <a href="https://gem-hacksaw-4b1.notion.site/33a9c91d6b5780089d58c722bc9406dc?source=copy_link" class="nav-link" aria-current="page" target="_blank">API DOCS</a>
+                </li>
                 <li class="nav-item">
                     <a href="/" class="nav-link <?= ($menu_code === '') ? 'active' : '' ?>" aria-current="page">Info</a>
                 </li>
