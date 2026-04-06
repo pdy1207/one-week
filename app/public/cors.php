@@ -1,67 +1,66 @@
 <?php
 
-$js_array = ['./js/agree.js'];
+$js_array = ['./js/cors.js'];
 
 $g_title = '마라톤 코스 선택';
 $menu_code = 'agree';
 
 require './layout/header.php';
+
+$courses = [
+    ['id' => 1, 'name' => '5km', 'desc' => '가족 러닝', 'price' => 30000, 'max' => 100, 'current' => 95],
+    ['id' => 2, 'name' => '10km', 'desc' => '일반 코스', 'price' => 50000, 'max' => 100, 'current' => 60],
+    ['id' => 3, 'name' => 'Half', 'desc' => '21.0975km', 'price' => 60000, 'max' => 80, 'current' => 80],
+    ['id' => 4, 'name' => 'Full', 'desc' => '42.195km', 'price' => 70000, 'max' => 50, 'current' => 10],
+];
 ?>
 
 
 <main class="w-50 mx-auto border rounded-2 p-5 ">
-    <!-- 마라톤 코스 선택 -->
-    <div class="mt-4">
-        <label class="form-label fw-bold">🏃 마라톤 코스 선택</label>
 
-        <div class="row g-3">
+    <form id="f_course" method="get" action="info.php">
+        <!-- 마라톤 코스 선택 -->
+        <div class="mt-4">
+            <label class="form-label fw-bold">🏃 마라톤 코스 선택</label>
 
-            <!-- 5km -->
-            <div class="col-6">
-                <input type="radio" class="btn-check" name="course" id="course1" value="5km" checked>
-                <label class="btn btn-outline-success w-100 p-3" for="course1">
-                    <div class="fw-bold">5km</div>
-                    <small>가족 러닝</small><br>
-                    <small>30,000원</small>
-                </label>
-            </div>
+            <div class="row g-3">
 
-            <!-- 10km -->
-            <div class="col-6">
-                <input type="radio" class="btn-check" name="course" id="course2" value="10km">
-                <label class="btn btn-outline-info w-100 p-3" for="course2">
-                    <div class="fw-bold">10km</div>
-                    <small>일반 코스</small><br>
-                    <small>50,000원</small>
-                </label>
-            </div>
+                <?php foreach ($courses as $c): 
+                    $remaining = $c['max'] - $c['current'];
+                    $isFull = $remaining <= 0;
+                ?>
+                <div class="col-6">
 
-            <!-- Half -->
-            <div class="col-6">
-                <input type="radio" class="btn-check" name="course" id="course3" value="half">
-                <label class="btn btn-outline-warning w-100 p-3" for="course3">
-                    <div class="fw-bold">Half</div>
-                    <small>21.0975km</small><br>
-                    <small>60,000원</small>
-                </label>
-            </div>
+                    <input type="radio" class="btn-check course-radio" name="course" id="course<?= $c['id'] ?>"
+                        value="<?= $c['id'] ?>" data-price="<?= $c['price'] ?>" <?= $isFull ? 'disabled' : '' ?>>
 
-            <!-- Full -->
-            <div class="col-6">
-                <input type="radio" class="btn-check" name="course" id="course4" value="full">
-                <label class="btn btn-outline-danger w-100 p-3" for="course4">
-                    <div class="fw-bold">Full</div>
-                    <small>42.195km</small><br>
-                    <small>70,000원</small>
-                </label>
-            </div>
-            <div class="mt-4 d-flex">
-                <button type="button" id="btn_next" class="btn btn-primary w-100 py-2">
-                    다음 →
-                </button>
+                    <label class="btn w-100 p-3 <?= $isFull ? 'btn-secondary' : 'btn-outline-primary' ?>"
+                        for="course<?= $c['id'] ?>">
+                        <div class="fw-bold"><?= $c['name'] ?></div>
+
+                        <small><?= $remaining ?> / <?= $c['max'] ?> 남음</small><br>
+
+                        <small><?= number_format($c['price']) ?>원</small>
+
+                        <?php if ($isFull): ?>
+                        <div class="badge bg-danger mt-2">접수 마감</div>
+                        <?php endif; ?>
+                    </label>
+
+                </div>
+                <?php endforeach; ?>
+                <div class="mt-4 d-flex">
+                    <button type="button" id="btn_next" class="btn btn-primary w-100 py-2">
+                        다음 →
+                    </button>
+                </div>
+                <div class="mt-4 p-3 border rounded bg-light text-center">
+                    <h5>총 결제 예정 금액</h5>
+                    <h3 id="total_price">0원</h3>
+                </div>
             </div>
         </div>
-    </div>
+    </form>
 </main>
 
 <?php 
