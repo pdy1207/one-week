@@ -8,6 +8,27 @@ services:
       - ./app:/var/www/html
   app:
     build:
-      dockerfile: ./php/Dockerfile
+      dockerfile: ./php/DockerFile
     volumes:
       - ./app:/var/www/html
+    environment:
+      MYSQL_HOST: ${DB_HOST}
+      MYSQL_PORT: ${DB_PORT}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
+  db:
+    image: mysql:8.0
+    ports:
+      - "3306:${DB_PORT}"
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
+    volumes:
+      - dbdata:/var/lib/mysql
+
+volumes:
+  dbdata:
