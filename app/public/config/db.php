@@ -19,7 +19,7 @@ try {
 }
 // try {
 //     $dbh = new PDO('mysql:host=127.0.0.1;dbname=pdydb;charset=utf8mb4', 'pdy', 'pdy11@#');
-//     echo "Connected successfully";
+//     // echo "Connected successfully";
 // } catch (PDOException $e) {
 //     print "Error!: " . $e->getMessage() . "<br/>";
 //     die();

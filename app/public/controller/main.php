@@ -31,7 +31,7 @@
         }
 
         public function getCoursesName($course_id){
-            $sql = "SELECT name FROM courses WHERE id = ?";
+            $sql = "SELECT name,description FROM courses WHERE id = ?";
             $stmt = $this->dbh->prepare($sql);
             $stmt->execute([$course_id]);
             
