@@ -1,31 +1,53 @@
--- pdydb.registrations definition
+CREATE TABLE courses (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,        -- 5km, 10km 등
+    description VARCHAR(100),         -- 설명
+    price INT NOT NULL,               -- 가격
+    max_participants INT NOT NULL,    -- 최대 인원
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
 
-CREATE TABLE `registrations` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `course_id` int(11) NOT NULL,
-  `name` varchar(50) NOT NULL COMMENT '이름',
-  `birth` date NOT NULL COMMENT '생년월일',
-  `gender` char(1) NOT NULL COMMENT '성별',
-  `phone` varchar(20) NOT NULL COMMENT '휴대폰번호',
-  `email` varchar(100) NOT NULL COMMENT '이메일',
-  `size` varchar(5) NOT NULL COMMENT '기념품 (티셔츠) 사이즈',
-  `agree_rally` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0: 미동의 1: 동의 [대회 참가]',
-  `agree_info` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0: 미동의 1: 동의 [개인정보]',
-  `agree_market` tinyint(1) DEFAULT '0' COMMENT '0: 미동의 1: 동의 [마케팅]',
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  KEY `course_id` (`course_id`),
-  CONSTRAINT `registrations_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- pdydb.courses definition
 
-CREATE TABLE `courses` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) NOT NULL COMMENT '5km, 10km 등 코스이름',
-  `description` varchar(100) DEFAULT NULL COMMENT '설명',
-  `price` int(11) NOT NULL COMMENT '가격',
-  `max_participants` int(11) NOT NULL COMMENT '최대 인원',
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE registrations (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    course_id INT NOT NULL,           -- 어떤 코스 선택했는지
+    name VARCHAR(50) NOT NULL,       
+    birth DATE NOT NULL,
+    gender CHAR(1) NOT NULL,
+    phone VARCHAR(20) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    size VARCHAR(5) NOT NULL,         -- S, M, L, XL
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (course_id) REFERENCES courses(id)
+);
+
+
+ALTER TABLE courses CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE registrations CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+
+INSERT INTO courses (name, description, price, max_participants) VALUES
+('5km', '가족 러닝', 30000, 3000),
+('10km', '일반 코스', 50000, 5000),
+('42km', 'Full 코스', 70000, 2000),
+('21km', 'Half 코스', 60000, 4000);
+
+INSERT INTO registrations 
+(course_id, name, birth, gender, phone, email, size, agree_rally, agree_info, agree_market)
+VALUES
+
+-- 5km (동의 O)
+(1, '홍길동', '1995-01-01', 'M', '01012345678', 'hong@test.com', 'M', 1, 1, 1),
+
+-- 5km (마케팅만 미동의)
+(1, '김철수', '1992-03-10', 'M', '01022223333', 'kim@test.com', 'L', 1, 1, 0),
+
+-- 10km
+(2, '이영희', '1998-07-15', 'F', '01033334444', 'lee@test.com', 'S', 1, 1, 1),
+
+-- Half
+(3, '박민수', '1990-12-20', 'M', '01044445555', 'park@test.com', 'XL', 1, 1, 1),
+
+-- Full
+(4, '최지은', '2000-05-05', 'F', '01055556666', 'choi@test.com', 'M', 1, 1, 0);
