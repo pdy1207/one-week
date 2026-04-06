@@ -4,11 +4,10 @@
 
     $g_title = '참가자 정보 입력';
     $menu_code = 'agree';
-    $course = $_GET['course'] ?? '';
-
+    $course = isset($_GET['course']) ? (int)$_GET['course'] : 0;
+    $course_name = isset($_GET['name']) ? $_GET['name'] : '';
     require './layout/header.php';    
 ?>
-
 <main class="w-50 mx-auto border rounded-2 p-5">
 
     <h3 class="mb-4 text-center">참가자 정보 입력</h3>
@@ -16,7 +15,11 @@
     <form method="post" action="./pay.php">
 
         <!-- 코스 (hidden) -->
-        <input type="hidden" name="course" value="<?= htmlspecialchars($course) ?>">
+        <div class="mb-3">
+            <label class="form-label">코스</label>
+            <input type="hidden" name="course" value="<?= $course ?>">
+            <input id="course_name" name="course_name" type="text" class="form-control" readonly>
+        </div>
 
         <!-- 이름 -->
         <div class="mb-3">

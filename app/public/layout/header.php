@@ -40,7 +40,7 @@ if(isset($js_array)){
             </a>
             <ul class="nav nav-pills gap-2">
                 <li class="nav-item">
-                    <a href="/" class="nav-link <?= ($menu_code === '') ? 'active' : '' ?>" aria-current="page">Main</a>
+                    <a href="/" class="nav-link <?= ($menu_code === '') ? 'active' : '' ?>" aria-current="page">Info</a>
                 </li>
                 <li class="nav-item">
                     <a href="../agree.php" class="nav-link <?= ($menu_code === 'agree') ? 'active' : '' ?>">대회 접수 하기</a>
