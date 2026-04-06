@@ -40,7 +40,8 @@
     <!-- 생년월일 -->
     <div class="mb-3">
         <label class="form-label">생년월일</label>
-        <input type="date" name="birth" class="form-control">
+        <input type="text" name="birth" id="birth" class="form-control" placeholder="YYYY-MM-DD">
+        <div id="birth_error" class="text-danger small mt-1 d-none"></div>
     </div>
 
     <!-- 성별 -->
@@ -61,13 +62,15 @@
     <!-- 연락처 -->
     <div class="mb-3">
         <label class="form-label">연락처</label>
-        <input type="text" name="phone" class="form-control">
+        <input type="text" name="phone" class="form-control" id="phone">
+        <div id="phone_error" class="d-none text-danger"></div>
     </div>
 
     <!-- 이메일 -->
     <div class="mb-3">
         <label class="form-label">이메일</label>
-        <input type="email" name="email" class="form-control">
+        <input type="email" name="email" class="form-control" id="email">
+        <div id="email_error" class="d-none text-danger"></div>
     </div>
 
     <!-- 기념품 사이즈 -->
