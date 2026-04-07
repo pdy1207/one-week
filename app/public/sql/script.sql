@@ -12,7 +12,7 @@ CREATE TABLE courses (
 CREATE TABLE registrations (
     id INT AUTO_INCREMENT PRIMARY KEY,
     course_id INT NOT NULL,           -- 어떤 코스 선택했는지
-    name VARCHAR(50) NOT NULL,       
+    name VARCHAR(50) NOT NULL,
     birth DATE NOT NULL,
     gender CHAR(1) NOT NULL,
     phone VARCHAR(20) NOT NULL,
@@ -51,3 +51,26 @@ VALUES
 
 -- Full
 (4, '최지은', '2000-05-05', 'F', '01055556666', 'choi@test.com', 'M', 1, 1, 0);
+
+
+SELECT 
+                    c.*,
+                    COUNT(r.id) AS registered
+                FROM courses c
+                LEFT JOIN registrations r 
+                    ON c.id = r.course_id
+                GROUP BY c.id
+                
+                
+INSERT INTO registrations 
+(course_id, name, birth, gender, phone, email, SIZE, agree_rally, 
+agree_info, agree_market, ip, zipcode, addr1, addr2, pay_complete)
+VALUES 
+
+-- 5km 테스트 (마케팅만 동의)
+(1, '박도융', '1998-12-03', 'M', '01068121234', 'pdy@gmail.com', 'M', 1,1,0, '172.0.0.1', 35578,'대전 대덕구 송촌동', '선비마을', 1)
+
+ALTER TABLE registrations ADD participant_code VARCHAR(20) UNIQUE;
+
+ALTER TABLE registrations 
+ADD UNIQUE KEY unique_user (name, phone);

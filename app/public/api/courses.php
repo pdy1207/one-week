@@ -10,7 +10,7 @@ try {
     $courses = $main->getCourses();
 
     echo json_encode([
-        'status' => 'success',
+        'status' => 200,
         'data' => $courses
     ], JSON_UNESCAPED_UNICODE);
 

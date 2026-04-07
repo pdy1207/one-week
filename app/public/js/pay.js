@@ -28,6 +28,42 @@ $(document).ready(function () {
           .html("✅ 결제 완료!<br>참가번호: <b>" + code + "</b>")
           .css("color", "green");
 
+        $.ajax({
+          url: "/api/registration.php",
+          type: "POST",
+          contentType: "application/json",
+          data: JSON.stringify({
+            course_id: $("input[name='course']").val(),
+            name: $("input[name='name']").val(),
+            birth: $("input[name='birth']").val(),
+            gender: $("input[name='gender']").val(),
+            phone: $("input[name='phone']").val().replace(/-/g, ""),
+            email: $("input[name='email']").val(),
+            size: $("input[name='tshirt_size']").val(),
+            agree_rally: $("input[name='agree_rally']").val(),
+            agree_info: $("input[name='agree_info']").val(),
+            agree_market: $("input[name='agree_market']").val(),
+            code: code,
+            zipcode: $("input[name='zipcode']").val(),
+            addr1: $("input[name='f_adress']").val(),
+            addr2: $("input[name='f_adress2']").val(),
+          }),
+          success: function (res) {
+            if (res.data && res.data.status === 409) {
+              alert("잘못된 요청입니다.");
+              $("#result").text(res.data.message).css("color", "red");
+              $("#btn_pay").prop("disabled", false);
+              return;
+            }
+
+            // ✅ 정상 저장
+            console.log("DB 저장 완료", res);
+          },
+          error: function (xhr) {
+            console.log("통신 실패", xhr);
+          },
+        });
+
         // 버튼 유지 (재결제 방지)
         $("#btn_pay").remove();
       }

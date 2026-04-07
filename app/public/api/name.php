@@ -9,7 +9,7 @@ try {
     $courses_name = $main->getCoursesName($course_id);
 
     echo json_encode([
-        'status' => 'success',
+        'status' => 200,
         'data' => $courses_name
     ], JSON_UNESCAPED_UNICODE);
 

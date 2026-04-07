@@ -27,10 +27,13 @@
 </script>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <style>
-body, input, button, select, textarea {
+body,
+input,
+button,
+select,
+textarea {
     font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
 }
-
 </style>
 <?php 
 if(isset($js_array)){
@@ -47,11 +50,15 @@ if(isset($js_array)){
                 <span class="fs-4"><?= $g_title ?></span>
             </a>
             <ul class="nav nav-pills gap-2">
-                 <li class="nav-item">
-                    <a href="https://gem-hacksaw-4b1.notion.site/33a9c91d6b5780089d58c722bc9406dc?source=copy_link" class="nav-link" aria-current="page" target="_blank">API DOCS</a>
+                <li class="nav-item">
+                    <a href="https://gem-hacksaw-4b1.notion.site/33a9c91d6b5780089d58c722bc9406dc?source=copy_link"
+                        class="nav-link" aria-current="page" target="_blank">DOCS</a>
                 </li>
                 <li class="nav-item">
                     <a href="/" class="nav-link <?= ($menu_code === '') ? 'active' : '' ?>" aria-current="page">Info</a>
+                </li>
+                <li class="nav-item">
+                    <a href="../list.php" class="nav-link <?= ($menu_code === 'list') ? 'active' : '' ?>">접수 내역</a>
                 </li>
                 <li class="nav-item">
                     <a href="../agree.php" class="nav-link <?= ($menu_code === 'agree') ? 'active' : '' ?>">대회 접수 하기</a>

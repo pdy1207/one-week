@@ -1,7 +1,7 @@
 <!-- Landing Page -->
 <?php
     $js_array = ['./js/main.js'];
-    $g_title ='🏆 2026 마라톤 대회 정보';
+    $g_title ='2026 마라톤 대회 정보';
     $menu_code = '';
     require './layout/header.php';    
 ?>
