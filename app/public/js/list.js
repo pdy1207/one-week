@@ -111,18 +111,18 @@ $(document).ready(function () {
                 <hr>
 
                     <div class="d-flex justify-content-between mb-2">
-                    <span>개인정보 동의</span>
+                    <span>개인정보 수집 동의</span>
                     ${getAgreeBadge(d.agree_info)}
                     </div>
-
+                    
                     <div class="d-flex justify-content-between mb-2">
-                    <span>마케팅 동의</span>
-                    ${getAgreeBadge(d.agree_market)}
+                    <span>러닝 대회 참가 동의</span>
+                    ${getAgreeBadge(d.agree_rally)}
                     </div>
 
                     <div class="d-flex justify-content-between mb-2">
-                    <span>러닝 동의</span>
-                    ${getAgreeBadge(d.agree_rally)}
+                    <span>이벤트/마케팅 동의</span>
+                    ${getAgreeBadge(d.agree_market)}
                     </div>
 
                 </div>

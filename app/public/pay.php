@@ -122,21 +122,22 @@ switch ($course) {
                     <!-- 개인정보 동의 상태 -->
                     <div class="mb-4">
 
-                        <div class="d-flex justify-content-between align-items-center">
-                            <span>러닝 대회 참가 동의</span>
-                            <span class="<?= $agree_rally ? 'text-success' : 'text-danger' ?>">
-                                <?= $agree_rally ? '✔ 완료' : '✖ 미동의' ?>
-                            </span>
-                        </div>
-
-                        <div class="d-flex justify-content-between align-items-center">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
                             <span>개인정보 수집 동의</span>
                             <span class="<?= $agree_info ? 'text-success' : 'text-danger' ?>">
                                 <?= $agree_info ? '✔ 완료' : '✖ 미동의' ?>
                             </span>
                         </div>
 
-                        <div class="d-flex justify-content-between align-items-center">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span>러닝 대회 참가 동의</span>
+                            <span class="<?= $agree_rally ? 'text-success' : 'text-danger' ?>">
+                                <?= $agree_rally ? '✔ 완료' : '✖ 미동의' ?>
+                            </span>
+                        </div>
+
+
+                        <div class="d-flex justify-content-between align-items-center mb-2">
                             <span>이벤트/마케팅 동의</span>
                             <span class="<?= $agree_market ? 'text-success' : 'text-danger' ?>">
                                 <?= $agree_market ? '✔ 완료' : '✖ 미동의' ?>
