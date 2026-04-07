@@ -11,21 +11,30 @@
     <div class="container mt-5">
 
         <!-- 대회 정보 -->
-        <div class="card shadow-sm mb-4">
-            <div class="card-body">
-                <h2 class="card-title mb-3"><i class="bi bi-trophy-fill"></i> <?= $g_title ?></h2>
-
-                <p class="card-text">
-                    <i class="bi bi-calendar-check-fill"></i> 날짜: 2026년 4월 10일<br>
-                    <i class="bi bi-geo-alt-fill"></i> 장소: 대전 엔디소프트 11층<br>
-                    <i class="bi bi-clock-fill"></i> 시작 시간: 오전 9시<br>
-                    <i class="bi bi-file-person-fill"></i> 참가 인원: 선착순 모집
-                </p>
+        <div class="card shadow-sm mb-4 rounded-4 p-4">
+            <div class="row align-items-center">
+                <!-- 왼쪽 텍스트 -->
+                <div class="col-md">
+                    <h2 class="card-title mb-3">
+                        <i class="bi bi-trophy-fill"></i> 2026 마라톤 대회 정보
+                    </h2>
+                    <p class="card-text mb-0">
+                        <i class="bi bi-calendar-check-fill"></i> 날짜: 2026년 4월 10일<br>
+                        <i class="bi bi-geo-alt-fill"></i> 장소: 대전 엔디소프트 11층<br>
+                        <i class="bi bi-clock-fill"></i> 시작 시간: 오전 9시<br>
+                        <i class="bi bi-file-person-fill"></i> 참가 인원: 선착순 모집
+                    </p>
+                </div>
+                <!-- 오른쪽 이미지 -->
+                <div class="col-md-auto text-center">
+                    <img src="https://trophyrang.com/data/item/1583214642/thumb-18201_320x372.png" alt="마라톤 이미지"
+                        class="img-fluid" style="max-width:150px;">
+                </div>
             </div>
         </div>
 
         <!-- 코스 정보 -->
-        <div class="card shadow-sm">
+        <div class="card shadow-sm rounded-4 p-3">
             <div class="card-body">
 
                 <h4 class="mb-4"><i class="bi bi-person-walking"></i> 코스별 정보</h4>

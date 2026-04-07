@@ -46,7 +46,7 @@
             <ul class="nav gap-2">
                 <li class="nav-item">
                     <a href="/" class="nav-link <?= ($menu_code === '') ? 'active' : '' ?>">
-                        Info
+                        대회 현황
                     </a>
                 </li>
 

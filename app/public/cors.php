@@ -14,7 +14,7 @@ $agree_market = isset($_POST['agree_market']) ? (int)$_POST['agree_market'] : 0;
 ?>
 <link rel="stylesheet" href="./css/cors.css">
 
-<main class="w-50 mx-auto border rounded-2 p-5 flex-grow-1">
+<main class="w-50 mx-auto border rounded-3 p-5 flex-grow-1 d-flex align-items-center">
 
     <form id="f_course" method="get" action="info.php">
         <input type="hidden" name="agree_rally" value="<?= $agree_rally ?>">
@@ -22,7 +22,7 @@ $agree_market = isset($_POST['agree_market']) ? (int)$_POST['agree_market'] : 0;
         <input type="hidden" name="agree_market" value="<?= $agree_market ?>">
 
         <!-- 마라톤 코스 선택 -->
-        <h3 class="form-label fw-bold">마라톤 코스 선택</h3>
+        <h3 class="form-label fw-bold mb-4">마라톤 코스 선택</h3>
 
         <!-- 코스 카드 그리드 -->
         <div id="course_list" class="row g-3"></div>

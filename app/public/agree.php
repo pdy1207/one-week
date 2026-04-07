@@ -12,7 +12,7 @@ require './layout/header.php';
 <main class="container ">
 
     <div class="card shadow-sm rounded-4 mb-4">
-        <div class="card-body">
+        <div class="card-body p-4">
 
             <h4 class="mb-3">대회 참가 유의사항 <span class="text-danger">(필수)</span></h4>
 
@@ -34,7 +34,7 @@ require './layout/header.php';
     </div>
 
     <div class="card shadow-sm rounded-4 mb-4">
-        <div class="card-body">
+        <div class="card-body p-4">
 
             <h4 class="mb-3">개인정보 수집 및 이용 <span class="text-danger">(필수)</span></h4>
 
@@ -56,7 +56,7 @@ require './layout/header.php';
     </div>
 
     <div class="card shadow-sm rounded-4 mb-4">
-        <div class="card-body">
+        <div class="card-body p-4">
 
             <h4 class="mb-3">마케팅 정보 수신 <span class="text-muted">(선택)</span></h4>
 
@@ -72,7 +72,7 @@ require './layout/header.php';
 
     <!-- 전체 동의 -->
     <div class="card shadow-sm rounded-4 mb-4 border-primary">
-        <div class="card-body">
+        <div class="card-body p-4">
 
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" id="checkAll">

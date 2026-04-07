@@ -26,7 +26,7 @@
 
 <script src="//t1.kakaocdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
-<main class="w-50 mx-auto border rounded-2 p-5">
+<main class="w-50 mx-auto border rounded-3 p-5">
     <form action="./pay.php" method="post">
         <h3 class="mb-4 text-center">참가자 정보 입력</h3>
 

@@ -43,12 +43,12 @@ switch ($course) {
 
 ?>
 
-<main class="container py-5">
+<main class="container py-3">
 
     <div class="row justify-content-center">
         <div class="col-lg-6">
 
-            <div class="card border-0 shadow-lg rounded-4">
+            <div class="card border-0 shadow-lg rounded-3">
                 <div class="card-body p-5">
 
                     <h2 class="text-center fw-bold mb-4">대회 코스 & 결제 정보</h2>
