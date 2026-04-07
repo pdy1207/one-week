@@ -25,7 +25,7 @@ $(document).ready(function () {
         const code = generateCode();
 
         $("#result")
-          .html("✅ 결제 완료!<br>참가번호: <b>" + code + "</b>")
+          .html("결제 완료!<br>참가번호: <b>" + code + "</b>")
           .css("color", "green");
 
         $.ajax({
