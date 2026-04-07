@@ -1,9 +1,23 @@
 $(document).ready(function () {
   $("#btn_pay").on("click", function () {
-    // 버튼 숨기고 로딩 표시
-    $("#btn_pay").prop("disabled", true);
+    // // 버튼 숨기고 로딩 표시
+    // $("#btn_pay").prop("disabled", true);
+    // $("#result").text("");
+    // $("#loading").removeClass("d-none");
+
+    // // 2~3초 랜덤 지연
+    // const delay = Math.floor(Math.random() * 2000) + 1000;
+    const $btn = $(this);
+
+    // 버튼 스피너로 변경
+    $btn.prop("disabled", true);
+    $btn.html(`
+      <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+      
+      결제 진행 중
+    `);
+
     $("#result").text("");
-    $("#loading").removeClass("d-none");
 
     // 2~3초 랜덤 지연
     const delay = Math.floor(Math.random() * 2000) + 1000;
@@ -16,10 +30,11 @@ $(document).ready(function () {
 
       if (isFail) {
         $("#result")
-          .text("❌ 결제 승인 실패. 다시 시도해주세요.")
+          .text("결제 승인 실패 다시 시도해주세요.")
           .css("color", "red");
 
-        $("#btn_pay").prop("disabled", false);
+        $btn.prop("disabled", false);
+        $btn.html("결제하기");
       } else {
         // 성공 → 참가번호 생성
         const code = generateCode();

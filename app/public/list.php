@@ -36,9 +36,46 @@ require './layout/header.php';
                         </button>
 
                         <!-- 로딩 -->
-                        <div id="loading" class="text-center mt-3 d-none">
+                        <!-- <div id="loading" class="text-center mt-3 d-none">
                             <div class="spinner-border"></div>
                             <div class="mt-2">조회 중...</div>
+                        </div> -->
+                        <!-- 스켈레톤 영역 -->
+                        <div id="skeleton" class="d-none mt-4">
+                            <div class="card border-0 shadow-lg rounded-4 overflow-hidden placeholder-glow">
+                                <div class="bg-primary text-white p-3 placeholder col-12 mb-0">&nbsp;</div>
+                                <div class="card-body">
+                                    <div class="mb-2">
+                                        <span class="placeholder col-6 me-2">&nbsp;</span>
+                                        <span class="placeholder col-4">&nbsp;</span>
+                                    </div>
+                                    <div class="mb-2">
+                                        <span class="placeholder col-6 me-2">&nbsp;</span>
+                                        <span class="placeholder col-4">&nbsp;</span>
+                                    </div>
+                                    <div class="mb-2">
+                                        <span class="placeholder col-6 me-2">&nbsp;</span>
+                                        <span class="placeholder col-4">&nbsp;</span>
+                                    </div>
+                                    <div class="mb-2">
+                                        <span class="placeholder col-4 me-2">&nbsp;</span>
+                                        <span class="placeholder col-6">&nbsp;</span>
+                                    </div>
+                                    <div class="mb-2">
+                                        <span class="placeholder col-6 me-2">&nbsp;</span>
+                                        <span class="placeholder col-4">&nbsp;</span>
+                                    </div>
+                                    <hr>
+                                    <div class="mb-2">
+                                        <span class="placeholder col-6 me-2">&nbsp;</span>
+                                        <span class="placeholder col-4">&nbsp;</span>
+                                    </div>
+                                    <div class="mb-2">
+                                        <span class="placeholder col-6 me-2">&nbsp;</span>
+                                        <span class="placeholder col-4">&nbsp;</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <!-- 결과 -->

@@ -14,6 +14,15 @@ $(document).ready(function () {
       );
     }
   });
+
+  // Enter 키 눌렀을 때 조회 버튼 클릭
+  $("#name, #phone").on("keydown", function (e) {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      $("#btn_search").click();
+    }
+  });
+
   $("#btn_search").on("click", function () {
     const name = $("#name").val();
     const phone = $("#phone").val().replace(/-/g, "");
@@ -23,122 +32,103 @@ $(document).ready(function () {
       return;
     }
 
-    $("#loading").removeClass("d-none");
+    // 기존 결과 숨기고 스켈레톤 표시
     $("#result").html("");
+    $("#skeleton").removeClass("d-none");
+    // $("#loading").removeClass("d-none"); // 기존 로딩 ui
 
-    $.ajax({
-      url: "/api/get_registration.php",
-      type: "POST",
-      contentType: "application/json",
-      data: JSON.stringify({
-        name: name,
-        phone: phone,
-      }),
-      success: function (res) {
-        $("#loading").addClass("d-none");
+    const delay = Math.floor(Math.random() * 1000) + 2000;
 
-        if (!res.data) {
+    setTimeout(function () {
+      $.ajax({
+        url: "/api/get_registration.php",
+        type: "POST",
+        contentType: "application/json",
+        data: JSON.stringify({ name: name, phone: phone }),
+        success: function (res) {
+          $("#skeleton").addClass("d-none");
+          // $("#loading").addClass("d-none"); // 기존 로딩 ui
+
+          if (!res.data) {
+            $("#result").html(`
+              <div class="alert alert-danger text-center">
+                조회 결과가 없습니다.
+              </div>
+            `);
+            return;
+          }
+
+          const d = res.data;
+
           $("#result").html(`
-            <div class="alert alert-danger text-center">
-              조회 결과가 없습니다.
-            </div>
-          `);
-          return;
-        }
-
-        const d = res.data;
-
-        $("#result").html(`
             <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
-                
-                <div class="bg-primary text-white p-3">
+              <!-- 실제 조회 카드 내용 -->
+              <div class="bg-primary text-white p-3">
                 <h4 class="mb-0 fw-bold">참가 정보</h4>
-                </div>
-
-                <div class="card-body">
-
+              </div>
+              <div class="card-body">
                 <div class="d-flex justify-content-between mb-2">
-                    <span class="text-muted">참가번호</span>
-                    <strong>${d.participant_code}</strong>
+                  <span class="text-muted">참가번호</span>
+                  <strong>${d.participant_code}</strong>
                 </div>
-
                 <div class="d-flex justify-content-between mb-2">
-                    <span class="text-muted">이름</span>
-                    <strong>${d.name}</strong>
+                  <span class="text-muted">이름</span>
+                  <strong>${d.name}</strong>
                 </div>
-
                 <div class="d-flex justify-content-between mb-2">
-                    <span class="text-muted">전화번호</span>
-                    <strong>${d.phone}</strong>
+                  <span class="text-muted">전화번호</span>
+                  <strong>${d.phone}</strong>
                 </div>
-
                 <div class="d-flex justify-content-between mb-2">
                   <span class="text-muted">코스</span>
-                  <div>
-                    ${getCourseBadge(d.course_id)}
+                  <div>${getCourseBadge(d.course_id)}</div>
+                </div>
+                <div class="d-flex justify-content-between mb-2">
+                  <span class="text-muted">기념품 사이즈</span>
+                  <strong>${d.size}</strong>
+                </div>
+                <div class="d-flex justify-content-between mb-2">
+                  <span class="text-muted">결제 상태</span>
+                  <span class="badge ${d.pay_complete == 1 ? "bg-success" : "bg-danger"}">
+                    ${d.pay_complete == 1 ? "완료" : "미완료"}
+                  </span>
+                </div>
+                <hr>
+                <div class="small text-muted d-flex justify-content-between">
+                  <div>주소</div>
+                  <div class="d-flex flex-column">
+                    <span class="text-end">${d.zipcode}</span>
+                    ${d.addr1} ${d.addr2}
                   </div>
                 </div>
-
-                <div class="d-flex justify-content-between mb-2">
-                    <span class="text-muted">기념품 사이즈</span>
-                    <strong>${d.size}</strong>
-                </div>
-
-                <div class="d-flex justify-content-between mb-2">
-                    <span class="text-muted">결제 상태</span>
-                    <span class="badge ${d.pay_complete == 1 ? "bg-success" : "bg-danger"}">
-                    ${d.pay_complete == 1 ? "완료" : "미완료"}
-                    </span>
-                </div>
-
-                <hr>
-
-                <div class="small text-muted d-flex justify-content-between">
-                    <div>주소</div>
-                    <div class="d-flex flex-column">
-                        <span class="text-end">${d.zipcode}</span>
-                        ${d.addr1} ${d.addr2}
-                    </div>
-                </div>
-
                 <div class="small text-muted mt-2 d-flex justify-content-between">
-                    등록일
-                        <div>
-                            ${d.created_at}
-                        </div>
+                  등록일
+                  <div>${d.created_at}</div>
                 </div>
-
                 <hr>
-
-                    <div class="d-flex justify-content-between mb-2">
-                    <span>개인정보 수집 동의</span>
-                    ${getAgreeBadge(d.agree_info)}
-                    </div>
-                    
-                    <div class="d-flex justify-content-between mb-2">
-                    <span>러닝 대회 참가 동의</span>
-                    ${getAgreeBadge(d.agree_rally)}
-                    </div>
-
-                    <div class="d-flex justify-content-between mb-2">
-                    <span>이벤트/마케팅 동의</span>
-                    ${getAgreeBadge(d.agree_market)}
-                    </div>
-
+                <div class="d-flex justify-content-between mb-2">
+                  <span>개인정보 수집 동의</span>${getAgreeBadge(d.agree_info)}
                 </div>
+                <div class="d-flex justify-content-between mb-2">
+                  <span>러닝 대회 참가 동의</span>${getAgreeBadge(d.agree_rally)}
+                </div>
+                <div class="d-flex justify-content-between mb-2">
+                  <span>이벤트/마케팅 동의</span>${getAgreeBadge(d.agree_market)}
+                </div>
+              </div>
             </div>
-            `);
-      },
-      error: function () {
-        $("#loading").addClass("d-none");
-
-        $("#result").html(`
-          <div class="alert alert-danger text-center">
-            서버 오류 발생
-          </div>
-        `);
-      },
-    });
+          `);
+        },
+        error: function () {
+          $("#skeleton").addClass("d-none");
+          $("#result").html(`
+            <div class="alert alert-danger text-center">
+              서버 오류 발생
+            </div>
+          `);
+        },
+      });
+    }, delay);
   });
 });
 function getCourseBadge(course_id) {
@@ -173,8 +163,8 @@ function formatDate(dateString) {
 }
 function getAgreeBadge(val) {
   if (val == 1) {
-    return `<span class="badge bg-success px-3 py-2">✔ 동의</span>`;
+    return `<span class="badge bg-success px-3 py-2">동의</span>`;
   } else {
-    return `<span class="badge bg-secondary px-3 py-2">✖ 미동의</span>`;
+    return `<span class="badge bg-secondary px-3 py-2">미동의</span>`;
   }
 }

@@ -21,7 +21,7 @@ $(document).ready(function () {
           <div class="mb-4 ${isFull ? "opacity-50" : ""}">
 
             <div class="d-flex justify-content-between">
-              <strong>${c.name}</strong>
+              <strong> ${c.name}</strong>
 
               ${
                 isFull
@@ -33,7 +33,7 @@ $(document).ready(function () {
             </div>
 
             <div class="small text-muted mb-1">
-              💰 참가비: ${Number(c.price).toLocaleString()}원
+              참가비 : ${Number(c.price).toLocaleString()}원
               | <span class="badge bg-${badgeColor}">
                 ${c.description}
               </span>
@@ -43,7 +43,7 @@ $(document).ready(function () {
               ${
                 isFull
                   ? `<span class="text-danger fw-bold">🚫 마감되었습니다</span>`
-                  : `🎯 잔여 인원: ${Number(remaining).toLocaleString()}명`
+                  : `잔여 수량 : ${Number(remaining).toLocaleString()}`
               }
             </div>
 

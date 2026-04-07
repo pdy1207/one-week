@@ -59,25 +59,21 @@
 
             // 주석 친 이유 해당 마감 체크 부분에서 잘못됨
             // 코스 인원 체크 + 락
-            // $sql = "
-            //     SELECT registered, max_participants 
-            //     FROM courses 
-            //     WHERE id = ? 
-            //     FOR UPDATE
-            // ";
+            $sql = "
+                SELECT max_participants, 
+                    (SELECT COUNT(*) FROM registrations WHERE course_id = ?) AS registered
+                FROM courses
+                WHERE id = ?
+                FOR UPDATE
+            ";
 
-            // $stmt = $this->dbh->prepare($sql);
-            // $stmt->execute([$data['course_id']]);
-            // $course = $stmt->fetch(PDO::FETCH_ASSOC);
+            $stmt = $this->dbh->prepare($sql);
+            $stmt->execute([$data['course_id'], $data['course_id']]);
+            $course = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            // if (!$course) {
-            //     throw new Exception('존재하지 않는 코스입니다.');
-            // }
-
-            // // 마감 체크
-            // if ($course['registered'] >= $course['max_participants']) {
-            //     throw new Exception('마감된 코스입니다.');
-            // }
+            if ($course['registered'] >= $course['max_participants']) {
+                throw new Exception('마감된 코스입니다.');
+            }
 
             // 중복 체크
             if ($this->checkDuplicate($data['phone'])) {

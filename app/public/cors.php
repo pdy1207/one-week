@@ -75,7 +75,7 @@ $agree_market = isset($_POST['agree_market']) ? (int)$_POST['agree_market'] : 0;
 
             <!-- 총 결제금액 영역 -->
             <div class="mt-4 p-3 border rounded bg-light text-center">
-                <h5>총 결제 예정 금액</h5>
+                <h5>결제 예정 금액</h5>
                 <h3 id="total_price">0원</h3>
             </div>
         </form>

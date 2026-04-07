@@ -125,14 +125,14 @@ switch ($course) {
                         <div class="d-flex justify-content-between align-items-center mb-2">
                             <span>개인정보 수집 동의</span>
                             <span class="<?= $agree_info ? 'text-success' : 'text-danger' ?>">
-                                <?= $agree_info ? '✔ 완료' : '✖ 미동의' ?>
+                                <?= $agree_info ? '동의' : '미동의' ?>
                             </span>
                         </div>
 
                         <div class="d-flex justify-content-between align-items-center mb-2">
                             <span>러닝 대회 참가 동의</span>
                             <span class="<?= $agree_rally ? 'text-success' : 'text-danger' ?>">
-                                <?= $agree_rally ? '✔ 완료' : '✖ 미동의' ?>
+                                <?= $agree_rally ? '동의' : '미동의' ?>
                             </span>
                         </div>
 
@@ -140,7 +140,7 @@ switch ($course) {
                         <div class="d-flex justify-content-between align-items-center mb-2">
                             <span>이벤트/마케팅 동의</span>
                             <span class="<?= $agree_market ? 'text-success' : 'text-danger' ?>">
-                                <?= $agree_market ? '✔ 완료' : '✖ 미동의' ?>
+                                <?= $agree_market ? '동의' : '미동의' ?>
                             </span>
                         </div>
 

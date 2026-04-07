@@ -52,9 +52,9 @@ $(document).ready(function () {
                             }
                             </div>
 
-                            <small>잔여 : ${remaining} / ${c.max_participants} 남음</small><br>
+                            <small>잔여 수량 : ${remaining} / ${c.max_participants}</small><br>
 
-                            <small>금액 : ${Number(c.price).toLocaleString()}원</small>
+                            <small>참가 비 : ${Number(c.price).toLocaleString()}원</small>
 
                             ${isFull ? `<div class="badge bg-danger mt-2">접수 마감</div>` : ""}
                         </label>
