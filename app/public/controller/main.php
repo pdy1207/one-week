@@ -38,35 +38,58 @@
             return $row = $stmt->fetch(PDO::FETCH_ASSOC);
         }
 
-        public function checkDuplicate($name, $phone) {
+        public function checkDuplicate($phone) {
 
             $sql = "
                 SELECT COUNT(*) 
                 FROM registrations 
-                WHERE name = ? AND phone = ?
+                WHERE phone = ?
             ";
 
             $stmt = $this->dbh->prepare($sql);
-            $stmt->execute([$name, $phone]);
+            $stmt->execute([$phone]);
 
             return $stmt->fetchColumn() > 0;
         }
 
         public function infoRegistration($data) {
 
+        try {
+            $this->dbh->beginTransaction();
+
+            // 주석 친 이유 해당 마감 체크 부분에서 잘못됨
+            // 코스 인원 체크 + 락
+            // $sql = "
+            //     SELECT registered, max_participants 
+            //     FROM courses 
+            //     WHERE id = ? 
+            //     FOR UPDATE
+            // ";
+
+            // $stmt = $this->dbh->prepare($sql);
+            // $stmt->execute([$data['course_id']]);
+            // $course = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            // if (!$course) {
+            //     throw new Exception('존재하지 않는 코스입니다.');
+            // }
+
+            // // 마감 체크
+            // if ($course['registered'] >= $course['max_participants']) {
+            //     throw new Exception('마감된 코스입니다.');
+            // }
+
             // 중복 체크
-            if ($this->checkDuplicate($data['name'], $data['phone'])) {
-                return [
-                    'status' => 409,
-                    'message' => '이미 동일한 이름과 전화번호로 신청되었습니다.'
-                ];
+            if ($this->checkDuplicate($data['phone'])) {
+                throw new Exception('이미 신청된 정보입니다.');
             }
 
+            // 등록 INSERT
             $sql = "
                 INSERT INTO registrations 
-                (course_id, name, birth, gender, phone, email, SIZE,
+                (course_id, name, birth, gender, phone, email, size,
                 agree_rally, agree_info, agree_market, ip,
-                zipcode, addr1, addr2, pay_complete,participant_code)
+                zipcode, addr1, addr2, pay_complete, participant_code)
                 VALUES 
                 (:course_id, :name, :birth, :gender, :phone, :email, :size,
                 :agree_rally, :agree_info, :agree_market, :ip,
@@ -74,28 +97,40 @@
             ";
 
             $stmt = $this->dbh->prepare($sql);
-
             $stmt->execute([
-                ':course_id'      => $data['course_id'],
-                ':name'           => $data['name'],
-                ':birth'          => $data['birth'],
-                ':gender'         => $data['gender'],
-                ':phone'          => $data['phone'],
-                ':email'          => $data['email'],
-                ':size'           => $data['size'],
-                ':agree_rally'    => $data['agree_rally'],
-                ':agree_info'     => $data['agree_info'],
-                ':agree_market'   => $data['agree_market'],
-                ':ip'             => $_SERVER['REMOTE_ADDR'],
-                ':zipcode'        => $data['zipcode'],
-                ':addr1'          => $data['addr1'],
-                ':addr2'          => $data['addr2'],
-                ':code'           => $data['code'],  
+                ':course_id'    => $data['course_id'],
+                ':name'         => $data['name'],
+                ':birth'        => $data['birth'],
+                ':gender'       => $data['gender'],
+                ':phone'        => $data['phone'],
+                ':email'        => $data['email'],
+                ':size'         => $data['size'],
+                ':agree_rally'  => $data['agree_rally'],
+                ':agree_info'   => $data['agree_info'],
+                ':agree_market' => $data['agree_market'],
+                ':ip'           => $_SERVER['REMOTE_ADDR'],
+                ':zipcode'      => $data['zipcode'],
+                ':addr1'        => $data['addr1'],
+                ':addr2'        => $data['addr2'],
+                ':code'         => $data['code'],
             ]);
+
+
+            $this->dbh->commit();
 
             return [
                 'status' => 200,
                 'message' => '등록 완료'
             ];
+
+        } catch (Exception $e) {
+
+            $this->dbh->rollBack();
+
+            return [
+                'status' => 400,
+                'message' => $e->getMessage()
+            ];
         }
+    }
     }

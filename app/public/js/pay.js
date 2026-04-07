@@ -55,9 +55,14 @@ $(document).ready(function () {
               $("#btn_pay").prop("disabled", false);
               return;
             }
-
-            // ✅ 정상 저장
-            console.log("DB 저장 완료", res);
+            if (res.data && res.data.status === 400) {
+              $("#result").text(res.data.message).css("color", "red");
+              $("#btn_pay").prop("disabled", false);
+              return;
+            }
+            console.log(res);
+            // // 정상 저장
+            // console.log("DB 저장 완료", res);
           },
           error: function (xhr) {
             console.log("통신 실패", xhr);

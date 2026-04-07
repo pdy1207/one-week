@@ -10,21 +10,26 @@ $(document).ready(function () {
       courses.forEach((c) => {
         const percent = (c.registered / c.max_participants) * 100;
         const remaining = c.max_participants - c.registered;
+        const isFull = remaining <= 0;
 
-        // 뱃지 색상
         let badgeColor = "success";
         if (c.description.includes("Full")) badgeColor = "danger";
         else if (c.description.includes("Half")) badgeColor = "warning";
         else if (c.description.includes("일반")) badgeColor = "primary";
 
         html += `
-          <div class="mb-4">
+          <div class="mb-4 ${isFull ? "opacity-50" : ""}">
 
             <div class="d-flex justify-content-between">
               <strong>${c.name}</strong>
-              <span class="text-muted">
-                현재: ${Number(c.registered).toLocaleString()} / ${Number(c.max_participants).toLocaleString()}
-              </span>
+
+              ${
+                isFull
+                  ? `<span class="badge bg-danger">마감</span>`
+                  : `<span class="text-muted">
+                      현재: ${Number(c.registered).toLocaleString()} / ${Number(c.max_participants).toLocaleString()}
+                    </span>`
+              }
             </div>
 
             <div class="small text-muted mb-1">
@@ -35,11 +40,17 @@ $(document).ready(function () {
             </div>
 
             <div class="small text-muted mb-1">
-              🎯 잔여 인원: ${Number(remaining).toLocaleString()}명
+              ${
+                isFull
+                  ? `<span class="text-danger fw-bold">🚫 마감되었습니다</span>`
+                  : `🎯 잔여 인원: ${Number(remaining).toLocaleString()}명`
+              }
             </div>
 
             <div class="progress">
-              <div class="progress-bar bg-primary" style="width: ${percent}%"></div>
+              <div class="progress-bar ${isFull ? "bg-danger" : "bg-primary"}" 
+                  style="width: ${percent}%">
+              </div>
             </div>
 
           </div>

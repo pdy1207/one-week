@@ -13,7 +13,9 @@
 
     // 필수 값이 없으면 루트로 이동
     if (!$agree_rally || !$agree_info || !$course) {
-        header("Location: ./");
+        echo "<script>alert('잘못된 접근 입니다.');
+        window.location.href = './';
+        </script>";
         exit;
     }
 
@@ -44,8 +46,8 @@
                     class="form-control fw-bold text-center bg-light border-2" readonly>
 
                 <!-- 코스 설명 -->
-                <input id="course_des" name="course_des" type="text"
-                    class="form-control text-muted bg-light border-0 text-center" readonly>
+                <input id="course_des" name="course_des" type="text" style="color: white !important;"
+                    class="form-control text-muted  border-0 text-center" readonly>
             </div>
         </div>
 

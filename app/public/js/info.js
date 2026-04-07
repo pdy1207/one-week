@@ -1,6 +1,31 @@
 $(document).ready(function () {
+  // =========================
+  // sessionStorage 불러오기
+  // =========================
+  const saved = sessionStorage.getItem("applyForm");
+
+  if (saved) {
+    const data = JSON.parse(saved);
+
+    $("#name").val(data.name || "");
+    $("#birth").val(data.birth || "");
+    $("#phone").val(data.phone || "");
+    $("#email").val(data.email || "");
+    $("#zipcode").val(data.zipcode || "");
+    $("#f_adress").val(data.address || "");
+    $("#f_adress2").val(data.address2 || "");
+
+    if (data.gender) {
+      $(`input[name="gender"][value="${data.gender}"]`).prop("checked", true);
+    }
+
+    if (data.tshirt_size) {
+      $('select[name="tshirt_size"]').val(data.tshirt_size);
+    }
+  }
+
   /* =========================
-     1. 코스 정보 불러오기
+     코스 정보 불러오기
   ========================= */
   const course = $('input[name="course"]').val();
   const agree_rally = $("#agree_rally").val();
@@ -17,16 +42,29 @@ $(document).ready(function () {
         if (res.data) {
           $("#course_name").val(res.data.name);
           $("#course_des").val(res.data.description);
+          const desc = res.data.description;
+          const $desc = $("#course_des");
+
+          if (desc.includes("가족 러닝")) {
+            $desc.addClass("bg-success text-muted"); // success 그린
+          } else if (desc.includes("일반 코스")) {
+            $desc.addClass("bg-primary text-white"); // primary 블루
+          } else if (desc.includes("Full 코스")) {
+            $desc.addClass("bg-danger text-white"); // danger 레드
+          } else if (desc.includes("하프")) {
+            $desc.addClass("bg-warning"); // warning 노랑 (글자색 기본은 dark)
+          }
+        } else {
+          alert("잘못된 접근입니다.");
+          sessionStorage.removeItem("applyForm");
+          window.location.href = "./";
         }
-      },
-      error: function () {
-        console.error("코스 정보를 불러오는 데 실패했습니다.");
       },
     });
   }
 
   /* =========================
-     2. 이름 검증
+     이름 검증
   ========================= */
   const $name = $('input[name="name"]');
   const $nameError = $("#name_error");
@@ -36,14 +74,9 @@ $(document).ready(function () {
     const korean = /^[가-힣]{2,10}$/;
     const english = /^[a-zA-Z]{2,20}$/;
 
-    if (invalid.test(value)) {
+    if (invalid.test(value))
       return "숫자, 특수문자, 공백은 입력할 수 없습니다.";
-    }
-
-    if (korean.test(value) || english.test(value)) {
-      return "";
-    }
-
+    if (korean.test(value) || english.test(value)) return "";
     return "한글 2~10자 / 영문 2~20자로 입력해주세요.";
   }
 
@@ -61,7 +94,7 @@ $(document).ready(function () {
   });
 
   /* =========================
-     3. 생년월일 자동 포맷 + 실시간 검증
+     생년월일 자동 포맷 + 실시간 검증
   ========================= */
   const $birth = $("#birth");
   const $birthError = $("#birth_error");
@@ -70,25 +103,19 @@ $(document).ready(function () {
     let v = $(this)
       .val()
       .replace(/[^0-9]/g, "");
-
     if (v.length > 8) v = v.substring(0, 8);
 
     let formatted = "";
-
-    if (v.length >= 5) {
+    if (v.length >= 5)
       formatted =
         v.substring(0, 4) + "-" + v.substring(4, 6) + "-" + v.substring(6, 8);
-    } else if (v.length >= 3) {
+    else if (v.length >= 3)
       formatted = v.substring(0, 4) + "-" + v.substring(4);
-    } else {
-      formatted = v;
-    }
+    else formatted = v;
 
     $(this).val(formatted);
 
-    // 👉 실시간 나이 체크
     const msg = checkAge(formatted);
-
     if (msg) {
       $birthError.text(msg).removeClass("d-none");
       $(this).addClass("is-invalid");
@@ -98,49 +125,27 @@ $(document).ready(function () {
     }
   });
 
-  /* =========================
-     4. 나이 검증 (만 18세)
-  ========================= */
   function checkAge(birth) {
     const today = new Date("2026-04-02");
     const b = new Date(birth);
 
-    if (!/^\d{4}-\d{2}-\d{2}$/.test(birth)) {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(birth))
       return "생년월일 형식이 올바르지 않습니다.";
-    }
-
-    if (isNaN(b.getTime())) {
-      return "유효하지 않은 날짜입니다.";
-    }
+    if (isNaN(b.getTime())) return "유효하지 않은 날짜입니다.";
 
     let age = today.getFullYear() - b.getFullYear();
-
     const m = today.getMonth() - b.getMonth();
-    if (m < 0 || (m === 0 && today.getDate() < b.getDate())) {
-      age--;
-    }
+    if (m < 0 || (m === 0 && today.getDate() < b.getDate())) age--;
+
     const course = Number($('input[name="course"]').val());
-    // 👉 Full 코스일 때만 제한
-    if (course === 5 && age < 18) {
+    if (course === 5 && age < 18)
       return "Full 코스는 만 18세 이상만 참가 가능합니다.";
-    }
 
     return "";
   }
 
   /* =========================
-     성별 검사 (라디오 필수)
-  ========================= */
-  function validateGender() {
-    const gender = $('input[name="gender"]:checked').val();
-    if (!gender) {
-      return "성별을 선택해주세요.";
-    }
-    return "";
-  }
-
-  /* =========================
-     연락처 자동 포맷 (010-0000-0000)
+     연락처 자동 포맷 + 중복 체크
   ========================= */
   const $phone = $("#phone");
   const $phoneError = $("#phone_error");
@@ -149,24 +154,18 @@ $(document).ready(function () {
     let v = $(this)
       .val()
       .replace(/[^0-9]/g, "");
-
     if (v.length > 11) v = v.substring(0, 11);
 
     let formatted = "";
-
-    if (v.length < 4) {
-      formatted = v;
-    } else if (v.length < 8) {
-      formatted = v.substring(0, 3) + "-" + v.substring(3);
-    } else {
+    if (v.length < 4) formatted = v;
+    else if (v.length < 8) formatted = v.substring(0, 3) + "-" + v.substring(3);
+    else
       formatted =
         v.substring(0, 3) + "-" + v.substring(3, 7) + "-" + v.substring(7, 11);
-    }
 
     $(this).val(formatted);
 
     const msg = validatePhone(formatted);
-
     if (msg) {
       $phoneError.text(msg).removeClass("d-none");
       $(this).addClass("is-invalid");
@@ -178,9 +177,7 @@ $(document).ready(function () {
 
   function validatePhone(phone) {
     const reg = /^010-\d{4}-\d{4}$/;
-    if (!reg.test(phone)) {
-      return "연락처 형식은 010-0000-0000 입니다.";
-    }
+    if (!reg.test(phone)) return "연락처 형식은 010-0000-0000 입니다.";
     return "";
   }
 
@@ -192,15 +189,12 @@ $(document).ready(function () {
 
   function validateEmail(email) {
     const reg = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!reg.test(email)) {
-      return "이메일 형식이 올바르지 않습니다.";
-    }
+    if (!reg.test(email)) return "이메일 형식이 올바르지 않습니다.";
     return "";
   }
 
   $email.on("input", function () {
     const msg = validateEmail($(this).val().trim());
-
     if (msg) {
       $emailError.text(msg).removeClass("d-none");
       $(this).addClass("is-invalid");
@@ -211,15 +205,11 @@ $(document).ready(function () {
   });
 
   /* =========================
-     기념품 사이즈 필수 선택
+     티셔츠 사이즈 필수 선택
   ========================= */
   function validateSize() {
     const size = $('select[name="tshirt_size"]').val();
-
-    if (!size) {
-      return "기념품 티셔츠 사이즈를 선택해주세요.";
-    }
-
+    if (!size) return "기념품 티셔츠 사이즈를 선택해주세요.";
     return "";
   }
 
@@ -238,19 +228,41 @@ $(document).ready(function () {
   $("#btn_zipcode").on("click", function () {
     new daum.Postcode({
       oncomplete: function (data) {
-        $zipcode.val(data.zonecode); // 우편번호
-        $address.val(data.address); // 기본 주소
-        $address2.val(""); // 상세주소 초기화
-        $addrError.addClass("d-none"); // 오류 메시지 숨기기
+        $zipcode.val(data.zonecode);
+        $address.val(data.address);
+        $address2.val("");
+        $addrError.addClass("d-none");
       },
     }).open();
   });
 
-  // =========================
-  // 3. 최종 제출 검증 업데이트
-  // =========================
-  $('button:contains("신청 완료")').on("click", function () {
-    const name = $('input[name="name"]').val().trim();
+  /* =========================
+     sessionStorage 저장
+  ========================= */
+  function saveFormSession() {
+    const data = {
+      name: $("#name").val(),
+      birth: $("#birth").val(),
+      gender: $('input[name="gender"]:checked').val(),
+      phone: $("#phone").val(),
+      email: $("#email").val(),
+      tshirt_size: $('select[name="tshirt_size"]').val(),
+      zipcode: $("#zipcode").val(),
+      address: $("#f_adress").val(),
+      address2: $("#f_adress2").val(),
+    };
+    sessionStorage.setItem("applyForm", JSON.stringify(data));
+  }
+
+  $("input, select").on("input change", saveFormSession);
+
+  /* =========================
+     신청 완료 버튼 (최종 제출 + phone 중복 체크)
+  ========================= */
+  $('button:contains("신청 완료")').on("click", function (e) {
+    e.preventDefault();
+
+    const name = $("#name").val().trim();
     const birth = $("#birth").val().trim();
     const phone = $("#phone").val().trim();
     const email = $("#email").val().trim();
@@ -260,80 +272,75 @@ $(document).ready(function () {
     const addr = $address.val().trim();
     const addr2 = $address2.val().trim();
 
-    // 이름 검증
+    // 입력 검증
     const nameMsg = validateName(name);
     if (nameMsg) {
       alert(nameMsg);
       $("#name").focus();
       return false;
     }
-
-    // 성별
     if (!gender) {
       alert("성별을 선택해주세요.");
       return false;
     }
-
-    // 생년월일 + 나이
     const birthMsg = checkAge(birth);
     if (birthMsg) {
       alert(birthMsg);
-      $("#birth").addClass("is-invalid").focus();
+      $("#birth").focus();
       return false;
     }
-
-    // 연락처
     const phoneMsg = validatePhone(phone);
     if (phoneMsg) {
       alert(phoneMsg);
-      $("#phone").addClass("is-invalid").focus();
+      $("#phone").focus();
       return false;
     }
-
-    // 이메일
     const emailMsg = validateEmail(email);
     if (emailMsg) {
       alert(emailMsg);
-      $("#email").addClass("is-invalid").focus();
+      $("#email").focus();
       return false;
     }
-
-    // 티셔츠 사이즈
     if (!size) {
       alert("기념품 티셔츠 사이즈를 선택해주세요.");
       $('select[name="tshirt_size"]').focus();
       return false;
     }
-
-    // 우편번호 / 주소
     if (!zipcode || !addr || !addr2) {
-      $addrError.removeClass("d-none");
       alert("주소를 모두 입력해주세요.");
-      if (!zipcode) $("#zipcode").focus();
-      else if (!addr) $("#f_adress").focus();
-      else $("#f_adress2").focus();
       return false;
     }
-    // console.log({
-    //   course: $('input[name="course"]').val(),
-    //   name: $('input[name="name"]').val(),
-    //   birth: $("#birth").val(),
-    //   gender: $('input[name="gender"]:checked').val(),
-    //   phone: $("#phone").val(),
-    //   email: $("#email").val(),
-    //   size: $('select[name="tshirt_size"]').val(),
-    //   zipcode: $("#zipcode").val(),
-    //   address: $("#f_adress").val(),
-    //   address2: $("#f_adress2").val(),
-    //   agree_rally: agree_rally,
-    //   agree_info: agree_info,
-    //   agree_market: agree_market,
-    // });
-    // alert("검증 완료 → 다음 단계 진행");
-    $("form").submit();
+
+    const phone_check = $("#phone").val().trim().replace(/-/g, "");
+
+    // phone 중복 체크
+    $.ajax({
+      url: "/controller/check_phone.php",
+      type: "POST",
+      data: { phone: phone_check },
+      dataType: "json",
+      success: function (res) {
+        console.log(res);
+        if (res.exists) {
+          alert("이미 신청된 전화번호입니다.");
+          $("#phone").addClass("is-invalid").focus();
+          return false;
+        } else {
+          $("#phone").removeClass("is-invalid");
+          sessionStorage.removeItem("applyForm");
+          $("form").submit();
+        }
+      },
+      error: function () {
+        sessionStorage.removeItem("applyForm");
+        console.error("중복 확인 실패");
+      },
+    });
   });
+
   // 취소 버튼
   $("#btn_cancel").on("click", function () {
+    sessionStorage.removeItem("applyForm");
     window.location.href = "./";
   });
 });

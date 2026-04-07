@@ -15,7 +15,7 @@
     <title><?= $g_title ?></title>
 </head>
 
-<body>
+<body class="d-flex flex-column min-vh-100">
 
     <div class="container mt-5">
 
