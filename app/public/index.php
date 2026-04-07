@@ -6,16 +6,7 @@
     require './layout/header.php';    
 ?>
 
-<!DOCTYPE html>
-<html lang="ko">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= $g_title ?></title>
-</head>
-
-<body class="d-flex flex-column min-vh-100">
+<main class="d-flex flex-column">
 
     <div class="container mt-5">
 
@@ -47,9 +38,8 @@
 
     </div>
 
-</body>
+</main>
 
-</html>
 
 <?php
     require './layout/footer.php';
