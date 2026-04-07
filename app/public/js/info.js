@@ -47,13 +47,13 @@ $(document).ready(function () {
           const $desc = $("#course_des");
 
           if (desc.includes("가족 러닝")) {
-            $desc.addClass("bg-success text-muted"); // success 그린
+            $desc.addClass("bg-success");
           } else if (desc.includes("일반 코스")) {
-            $desc.addClass("bg-primary text-white"); // primary 블루
+            $desc.addClass("bg-primary");
           } else if (desc.includes("Full 코스")) {
-            $desc.addClass("bg-danger text-white"); // danger 레드
+            $desc.addClass("bg-danger");
           } else if (desc.includes("하프")) {
-            $desc.addClass("bg-warning"); // warning 노랑 (글자색 기본은 dark)
+            $desc.addClass("bg-warning");
           }
         } else {
           alert("잘못된 접근입니다.");
