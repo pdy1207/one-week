@@ -42,6 +42,7 @@ $(document).ready(function () {
         if (res.data) {
           $("#course_name").val(res.data.name);
           $("#course_des").val(res.data.description);
+
           const desc = res.data.description;
           const $desc = $("#course_des");
 
