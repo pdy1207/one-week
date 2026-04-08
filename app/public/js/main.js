@@ -4,8 +4,19 @@ $(document).ready(function () {
     type: "GET",
     dataType: "json",
     success: function (res) {
-      const courses = res.data;
+      let courses = res.data;
       let html = "";
+
+      // 1. [추가] 마감된 코스를 뒤로 보내기 (정렬)
+      // remaining이 0 이하인 것(isFull)을 뒤로 보냅니다.
+      courses.sort((a, b) => {
+        const remainingA = a.max_participants - a.registered;
+        const remainingB = b.max_participants - b.registered;
+        const isFullA = remainingA <= 0;
+        const isFullB = remainingB <= 0;
+
+        return isFullA - isFullB; // false(0) < true(1) 이므로 마감이 뒤로 감
+      });
 
       courses.forEach((c) => {
         const percent = (c.registered / c.max_participants) * 100;
@@ -13,48 +24,81 @@ $(document).ready(function () {
         const isFull = remaining <= 0;
 
         let badgeColor = "success";
-        if (c.description.includes("Full")) badgeColor = "danger";
-        else if (c.description.includes("Half")) badgeColor = "warning";
-        else if (c.description.includes("일반")) badgeColor = "primary";
+        let courseIcon = "👨‍👩‍👧‍👦";
+        if (c.description.includes("Full")) {
+          badgeColor = "danger";
+          courseIcon = "🏆";
+        } else if (c.description.includes("Half")) {
+          badgeColor = "warning";
+          courseIcon = "🏃";
+        } else if (c.description.includes("일반")) {
+          badgeColor = "primary";
+          courseIcon = "👟";
+        }
 
+        const progressColor = isFull ? "secondary" : badgeColor;
+
+        // 2. [수정] 버튼 클릭 시 이동 경로 추가 및 onclick 이벤트
+        // id를 파라미터로 넘겨야 할 수도 있으니 템플릿 리터럴에 반영
         html += `
-          <div class="mb-4 ${isFull ? "opacity-50" : ""}">
+            <div class="col-md-6 col-lg-4 mb-4">
+              <div class="card h-100 shadow-sm border-0 rounded-4 overflow-hidden course-card ${isFull ? "opacity-75 bg-light" : ""}" 
+                  style="transition: all 0.3s ease-in-out;">
+                
+                <div class="card-header bg-white border-0 pt-4 pb-0 d-flex align-items-center justify-content-between">
+                  <div class="d-flex align-items-center">
+                    <span class="fs-3 me-2">${courseIcon}</span>
+                    <h5 class="card-title mb-0 fw-bold text-dark">${c.name}</h5>
+                  </div>
+                  ${
+                    isFull
+                      ? `<span class="badge bg-secondary rounded-pill px-3 py-2">모집 마감</span>`
+                      : `<span class="badge bg-${badgeColor}-subtle text-${badgeColor} rounded-pill px-3 py-2">${c.description}</span>`
+                  }
+                </div>
 
-            <div class="d-flex justify-content-between">
-              <strong> ${c.name}</strong>
+                <div class="card-body d-flex flex-column justify-content-between">
+                  <div class="mb-4">
+                    <div class="d-flex justify-content-between align-items-end mb-2">
+                      <h4 class="fw-extrabold text-primary mb-0">
+                        ${Number(c.price).toLocaleString()}<span class="fs-6 text-muted fw-normal">원</span>
+                      </h4>
+                      <span class="small text-muted">총 ${Number(c.max_participants).toLocaleString()}티켓</span>
+                    </div>
+                    
+                    <p class="card-text text-secondary small mb-0">
+                      코스 상세: ${c.description} 마라톤 대회 참가를 위한 접수 티켓입니다.
+                    </p>
+                  </div>
 
-              ${
-                isFull
-                  ? `<span class="badge bg-danger">마감</span>`
-                  : `<span class="text-muted">
-                      현재: ${Number(c.registered).toLocaleString()} / ${Number(c.max_participants).toLocaleString()}
-                    </span>`
-              }
-            </div>
+                  <div>
+                    <div class="d-flex justify-content-between align-items-center mb-2 small">
+                      <span class="fw-bold ${isFull ? "text-secondary" : "text-dark"}">
+                        ${isFull ? "🚫 접수 마감" : `🔥 현재 ${Number(c.registered).toLocaleString()}명 신청 중`}
+                      </span>
+                      <span class="text-muted">
+                        ${isFull ? "0" : Number(remaining).toLocaleString()}석 남음
+                      </span>
+                    </div>
+                    
+                    <div class="progress rounded-pill" style="height: 12px; background-color: #e9ecef;">
+                      <div class="progress-bar bg-${progressColor} rounded-pill ${!isFull ? "progress-bar-striped progress-bar-animated" : ""}" 
+                          role="progressbar" 
+                          style="width: ${percent}%">
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
-            <div class="small text-muted mb-1">
-              참가비 : ${Number(c.price).toLocaleString()}원
-              | <span class="badge bg-${badgeColor}">
-                ${c.description}
-              </span>
-            </div>
-
-            <div class="small text-muted mb-1">
-              ${
-                isFull
-                  ? `<span class="text-danger fw-bold">🚫 마감되었습니다</span>`
-                  : `잔여 수량 : ${Number(remaining).toLocaleString()}`
-              }
-            </div>
-
-            <div class="progress">
-              <div class="progress-bar ${isFull ? "bg-danger" : "bg-primary"}" 
-                  style="width: ${percent}%">
+                <div class="card-footer bg-white border-0 pb-4 pt-0">
+                  <button class="btn ${isFull ? "btn-secondary" : "btn-" + badgeColor} w-100 rounded-pill fw-bold" 
+                          ${isFull ? "disabled" : `onclick="location.href='./agree.php?id=${c.id}'"`}>
+                    ${isFull ? "다음에 만나요 :(" : "지금 바로 신청하기 " + courseIcon}
+                  </button>
+                </div>
               </div>
             </div>
-
-          </div>
-        `;
+          `;
       });
 
       $("#course_list").html(html);

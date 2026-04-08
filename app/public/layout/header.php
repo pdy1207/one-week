@@ -14,6 +14,8 @@
     <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
     <!-- css경로 -->
     <link rel="stylesheet" href="../css/header.css">
+    <!-- 부트스트랩 js -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <!-- js 업데이트 -->
@@ -62,11 +64,25 @@
                     </a>
                 </li>
 
-                <li class="nav-item">
-                    <a href="https://gem-hacksaw-4b1.notion.site/33a9c91d6b5780089d58c722bc9406dc?source=copy_link"
-                        class="nav-link" target="_blank">
-                        DOCS
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                        Docs
                     </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a class="dropdown-item"
+                                href="https://gem-hacksaw-4b1.notion.site/33a9c91d6b5780089d58c722bc9406dc?pvs=74"
+                                target="_blank">
+                                API 및 프로젝트 폴더 문서
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="https://github.com/pdy1207/one-week-readme/tree/main"
+                                target="_blank">
+                                기술문서 README.md
+                            </a>
+                        </li>
+                    </ul>
                 </li>
             </ul>
 

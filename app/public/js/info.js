@@ -52,7 +52,7 @@ $(document).ready(function () {
             $desc.addClass("bg-primary");
           } else if (desc.includes("Full 코스")) {
             $desc.addClass("bg-danger");
-          } else if (desc.includes("하프")) {
+          } else if (desc.includes("Half 코스")) {
             $desc.addClass("bg-warning");
           }
         } else {

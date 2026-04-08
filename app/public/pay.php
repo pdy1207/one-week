@@ -68,13 +68,15 @@ switch ($course) {
                     <input type="hidden" name="f_adress2" value="<?= $data['f_adress2'] ?>">
 
                     <!-- 코스 -->
-                    <div class="text-center mb-4">
-                        <h4 class="fw-bold text-primary mb-1">
-                            <?= htmlspecialchars($data['course_name']) ?>
-                        </h4>
-                        <div class="text-muted">
-                            <?= htmlspecialchars($data['course_des']) ?>
-                        </div>
+                    <div class="d-flex  gap-2">
+                        <!-- 코스 이름 -->
+                        <input id="course_name" value="<?= htmlspecialchars($data['course_name']) ?>" type="text"
+                            class="form-control text-center bg-light border-2" readonly>
+
+                        <!-- 코스 설명 -->
+                        <input id="course_des" value="<?= htmlspecialchars($data['course_des']) ?>" type="text"
+                            style="color: white !important;" class="form-control text-muted border-0 text-center "
+                            readonly>
                     </div>
 
                     <hr>
@@ -83,33 +85,33 @@ switch ($course) {
                     <div class="mb-3">
                         <div class="d-flex justify-content-between border-bottom py-2">
                             <span class="text-muted">이름</span>
-                            <strong><?= htmlspecialchars($data['name']) ?></strong>
+                            <span><?= htmlspecialchars($data['name']) ?></span>
                         </div>
 
                         <div class="d-flex justify-content-between border-bottom py-2">
                             <span class="text-muted">생년월일</span>
-                            <strong><?= htmlspecialchars($data['birth']) ?></strong>
+                            <span><?= htmlspecialchars($data['birth']) ?></span>
                         </div>
 
                         <div class="d-flex justify-content-between border-bottom py-2">
                             <span class="text-muted">연락처</span>
-                            <strong><?= htmlspecialchars($data['phone']) ?></strong>
+                            <span><?= htmlspecialchars($data['phone']) ?></span>
                         </div>
 
                         <div class="d-flex justify-content-between border-bottom py-2">
                             <span class="text-muted">이메일</span>
-                            <strong><?= htmlspecialchars($data['email']) ?></strong>
+                            <span><?= htmlspecialchars($data['email']) ?></span>
                         </div>
 
                         <div class="d-flex justify-content-between border-bottom py-2">
                             <span class="text-muted">기념품 사이즈</span>
-                            <strong><?= htmlspecialchars($data['tshirt_size']) ?></strong>
+                            <span><?= htmlspecialchars($data['tshirt_size']) ?></span>
                         </div>
 
                         <div class="py-2 d-flex justify-content-between align-items-start">
                             <div class="text-muted">주소</div>
 
-                            <div class="fw-bold text-end">
+                            <div class="text-end">
                                 (<?= htmlspecialchars($data['zipcode']) ?>)<br>
                                 <?= htmlspecialchars($data['f_adress']) ?><br>
                                 <?= htmlspecialchars($data['f_adress2']) ?>
@@ -123,23 +125,23 @@ switch ($course) {
                     <div class="mb-4">
 
                         <div class="d-flex justify-content-between align-items-center mb-2">
-                            <span>개인정보 수집 동의</span>
-                            <span class="<?= $agree_info ? 'text-success' : 'text-danger' ?>">
+                            <span class="text-muted">개인정보 수집 동의</span>
+                            <span class="<?= $agree_info ? 'text-success' : 'text-danger' ?> fw-bolder">
                                 <?= $agree_info ? '동의' : '미동의' ?>
                             </span>
                         </div>
 
                         <div class="d-flex justify-content-between align-items-center mb-2">
-                            <span>러닝 대회 참가 동의</span>
-                            <span class="<?= $agree_rally ? 'text-success' : 'text-danger' ?>">
+                            <span class="text-muted">러닝 대회 참가 동의</span>
+                            <span class="<?= $agree_rally ? 'text-success' : 'text-danger' ?> fw-bolder">
                                 <?= $agree_rally ? '동의' : '미동의' ?>
                             </span>
                         </div>
 
 
                         <div class="d-flex justify-content-between align-items-center mb-2">
-                            <span>이벤트/마케팅 동의</span>
-                            <span class="<?= $agree_market ? 'text-success' : 'text-danger' ?>">
+                            <span class="text-muted">이벤트/마케팅 동의</span>
+                            <span class="<?= $agree_market ? 'text-success' : 'text-danger' ?> fw-bolder">
                                 <?= $agree_market ? '동의' : '미동의' ?>
                             </span>
                         </div>
@@ -149,7 +151,7 @@ switch ($course) {
 
                     <!-- 금액 -->
                     <div class="text-center bg-light p-4 rounded-3 mb-4">
-                        <div class="text-muted">결제 금액</div>
+                        <div class="text-muted fw-bolder">결제 금액</div>
                         <div class="fs-2 fw-bold text-danger">
                             <?= number_format($price) ?>원
                         </div>
@@ -165,7 +167,7 @@ switch ($course) {
                     <div id="result" class="text-center fw-bold mb-3"></div>
 
                     <!-- 버튼 -->
-                    <button id="btn_pay" class="btn btn-primary w-100 py-3 fw-bold rounded-3">
+                    <button id="btn_pay" class="btn btn-danger w-100 py-3 fw-bold rounded-3 text-light">
                         결제 진행하기
                     </button>
 
