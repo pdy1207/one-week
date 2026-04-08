@@ -40,20 +40,24 @@ $(document).ready(function () {
       dataType: "json",
       success: function (res) {
         if (res.data) {
-          $("#course_name").val(res.data.name);
+          const name = $("#course_name").val(res.data.name);
           $("#course_des").val(res.data.description);
-
+          const $courseBox = $("#course_des_box");
+          const $courseSel = name;
           const desc = res.data.description;
-          const $desc = $("#course_des");
 
           if (desc.includes("가족 러닝")) {
-            $desc.addClass("bg-success");
+            $courseBox.addClass("border-success");
+            $courseSel.addClass("text-success");
           } else if (desc.includes("일반 코스")) {
-            $desc.addClass("bg-primary");
+            $courseBox.addClass("border-primary");
+            $courseSel.addClass("text-primary");
           } else if (desc.includes("Full 코스")) {
-            $desc.addClass("bg-danger");
+            $courseBox.addClass("border-danger");
+            $courseSel.addClass("text-danger");
           } else if (desc.includes("Half 코스")) {
-            $desc.addClass("bg-warning");
+            $courseBox.addClass("border-warning");
+            $courseSel.addClass("text-warning");
           }
         } else {
           alert("잘못된 접근입니다.");
@@ -260,7 +264,7 @@ $(document).ready(function () {
   /* =========================
      신청 완료 버튼 (최종 제출 + phone 중복 체크)
   ========================= */
-  $('button:contains("신청 완료")').on("click", function (e) {
+  $('button:contains("정보 입력 완료")').on("click", function (e) {
     e.preventDefault();
 
     const name = $("#name").val().trim();

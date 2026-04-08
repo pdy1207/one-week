@@ -1,24 +1,13 @@
 <?php
     $js_array = ['./js/main.js'];
-    $g_title ='2026 마라톤 대회 정보';
+    $g_title ='2026 MARATHON';
     $menu_code = '';
     require './layout/header.php';    
 ?>
 
 <main class="d-flex flex-column bg-light">
-    <div class="text-white shadow-sm" style="background: linear-gradient(135deg, #e5336e 0%, #5a8cff 100%);">
-        <div class="container py-4 text-center">
-            <h1 class="display-3 fw-extrabold text-uppercase mb-3" style="letter-spacing:-2px;">
-                2026 MARATHON
-            </h1>
-            <a href="./agree.php" class="btn btn-light btn-lg rounded-pill fw-bold shadow-sm px-5 py-3">
-                지금 바로 참가 신청 <i class="bi bi-arrow-right"></i>
-            </a>
-        </div>
-    </div>
-
     <div class="container mt-n4 position-relative" style="z-index: 2;">
-        <div class="card border-0 shadow-lg mb-5 rounded-4 p-5 bg-white mt-5">
+        <div class="card border-0 shadow-lg mb-5 rounded-4 p-5 bg-white ">
             <div class="row g-5 align-items-center">
                 <div class="col-lg-8">
                     <div class="d-flex align-items-center mb-4 pb-2 border-bottom border-light">
@@ -70,9 +59,23 @@
                 </div>
             </div>
         </div>
+    </div>
 
+    <div class="text-white shadow-sm mb-5" style="background: linear-gradient(135deg, #e5336e 0%, #5a8cff 100%);">
+        <div class="container py-4 text-center">
+            <h1 class="display-3 fw-extrabold text-uppercase mb-3" style="letter-spacing:-2px;">
+                2026 MARATHON
+            </h1>
+            <a href="./agree.php" class="btn btn-light btn-lg rounded-pill fw-bold shadow-sm px-5 py-3">
+                지금 바로 참가 신청 <i class="bi bi-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+
+
+    <div class="container mt-n4 position-relative" style="z-index: 2;">
         <div id="course_section">
-            <div class="d-flex align-items-center mb-5 pb-2 border-bottom border-light">
+            <div class="d-flex align-items-center pb-5 border-bottom border-light">
                 <div class="bg-dark text-white rounded-3 p-3 me-3 d-flex align-items-center justify-content-center"
                     style="width: 50px; height: 50px;">
                     <i class="bi bi-flag-fill fs-4"></i>
@@ -81,11 +84,13 @@
                 <span class="ms-3 badge bg-danger rounded-pill px-3 py-2">🔥 실시간 모집 현황</span>
             </div>
 
-            <div id="course_list" class="row g-4 mb-5">
+            <div id="course_list" class="row g-4 ">
             </div>
         </div>
-
     </div>
+
+
+
 
 </main>
 

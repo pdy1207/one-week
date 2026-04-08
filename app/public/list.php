@@ -31,7 +31,7 @@ require './layout/header.php';
                         </label>
                         <input type="text" id="name"
                             class="form-control form-control-lg rounded-3 border-light shadow-sm fs-6"
-                            placeholder="홍길동">
+                            placeholder="이름을 입력해주세요.">
                     </div>
 
                     <div class="mb-5">

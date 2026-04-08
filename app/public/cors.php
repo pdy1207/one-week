@@ -10,7 +10,6 @@ $agree_rally  = isset($_POST['agree_rally']) ? (int)$_POST['agree_rally'] : 0;
 $agree_info   = isset($_POST['agree_info']) ? (int)$_POST['agree_info'] : 0;
 $agree_market = isset($_POST['agree_market']) ? (int)$_POST['agree_market'] : 0;
 
-echo $agree_rally, $agree_info, $agree_market;
 
 ?>
 
@@ -20,7 +19,6 @@ echo $agree_rally, $agree_info, $agree_market;
 
             <form id="f_course" method="get" action="info.php"
                 class="card border-0 shadow-lg rounded-4 overflow-hidden bg-white">
-                <div style="height: 6px; background: linear-gradient(90deg, #6610f2, #0d6efd);"></div>
 
                 <div class="card-body p-4 p-md-5">
                     <div class="text-center mb-5">

@@ -27,10 +27,40 @@ $(document).ready(function () {
     const name = $("#name").val();
     const phone = $("#phone").val().replace(/-/g, "");
 
-    if (!name || !phone) {
-      alert("이름과 전화번호를 입력하세요.");
+    // 1. 이름 검증 (함수 합치기)
+    const nameError = (function (val) {
+      const korean = /^[가-힣]{2,10}$/;
+      const english = /^[a-zA-Z]{2,20}$/;
+      if (!val) return "이름을 입력해주세요.";
+      if (korean.test(val) || english.test(val)) return "";
+      return "한글 2~10자 또는 영문 2~20자로 입력해주세요 (공백/숫자 불가).";
+    })(name);
+
+    if (nameError) {
+      alert(nameError);
+      $("#name").focus();
       return;
     }
+
+    const phoneWithHyphen = $("#phone").val();
+
+    // 2. 전화번호 검증 (함수 합치기)
+    const phoneError = (function (val) {
+      // 하이픈 포함된 형식이 정확한지 체크
+      const reg = /^010-\d{4}-\d{4}$/;
+      if (!val) return "전화번호를 입력해주세요.";
+      if (!reg.test(val)) return "연락처 형식은 010-0000-0000 입니다.";
+      return "";
+    })(phoneWithHyphen);
+
+    if (phoneError) {
+      alert(phoneError);
+      $("#phone").focus();
+      return;
+    }
+
+    // 3. 검증 통과 후 로직 실행
+    const purePhone = phone.replace(/-/g, ""); // API 전송용 숫자만 추출
 
     // 기존 결과 숨기고 스켈레톤 표시
     $("#result").html("");
