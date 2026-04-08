@@ -3,7 +3,6 @@
     $g_title = '참가자 정보 입력';
     $menu_code = 'agree';
     
-    // 데이터 수신
     $course = isset($_GET['course']) ? (int)$_GET['course'] : 0;
     $agree_rally  = isset($_GET['agree_rally']) ? (int)$_GET['agree_rally'] : 0;
     $agree_info   = isset($_GET['agree_info']) ? (int)$_GET['agree_info'] : 0;
@@ -22,6 +21,7 @@
 <script src="//t1.kakaocdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 <main class="container py-5">
+
     <div class="row justify-content-center">
         <div class="col-lg-8 col-xl-7">
 

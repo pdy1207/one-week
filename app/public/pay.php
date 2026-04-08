@@ -8,10 +8,8 @@ $course = $_GET['course'] ?? '';
 
 require './layout/header.php';    
 
-
 $data = $_POST ?? [];
 
-// 필수 체크
 if (empty($data)) {
     echo "<script>alert('잘못된 접근입니다.'); history.back();</script>";
     exit;
@@ -67,13 +65,9 @@ switch ($course) {
                     <input type="hidden" name="f_adress" value="<?= $data['f_adress'] ?>">
                     <input type="hidden" name="f_adress2" value="<?= $data['f_adress2'] ?>">
 
-                    <!-- 코스 -->
                     <div class="d-flex  gap-2">
-                        <!-- 코스 이름 -->
                         <input id="course_name" value="<?= htmlspecialchars($data['course_name']) ?>" type="text"
                             class="form-control text-center bg-light border-2" readonly>
-
-                        <!-- 코스 설명 -->
                         <input id="course_des" value="<?= htmlspecialchars($data['course_des']) ?>" type="text"
                             style="color: white !important;" class="form-control text-muted border-0 text-center "
                             readonly>

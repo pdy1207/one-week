@@ -343,7 +343,6 @@ $(document).ready(function () {
     });
   });
 
-  // 취소 버튼
   $("#btn_cancel").on("click", function () {
     sessionStorage.removeItem("applyForm");
     window.location.href = "./";

@@ -1,11 +1,11 @@
 <?php
 
-$js_array = ['./js/list.js'];
+    $js_array = ['./js/list.js'];
 
-$g_title = '접수 내역 조회';
-$menu_code = 'list';
+    $g_title = '접수 내역 조회';
+    $menu_code = 'list';
 
-require './layout/header.php';
+    require './layout/header.php';
 
 ?>
 

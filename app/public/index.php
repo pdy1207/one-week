@@ -6,6 +6,7 @@
 ?>
 
 <main class="d-flex flex-column bg-light">
+
     <div class="container mt-n4 position-relative" style="z-index: 2;">
         <div class="card border-0 shadow-lg mb-5 rounded-4 p-5 bg-white ">
             <div class="row g-5 align-items-center">
@@ -72,7 +73,6 @@
         </div>
     </div>
 
-
     <div class="container mt-n4 position-relative" style="z-index: 2;">
         <div id="course_section">
             <div class="d-flex align-items-center pb-5 border-bottom border-light">
@@ -88,9 +88,6 @@
             </div>
         </div>
     </div>
-
-
-
 
 </main>
 

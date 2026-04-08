@@ -18,7 +18,7 @@ $(document).ready(function () {
   $("#btn_cancel").on("click", function () {
     window.location.href = "./";
   });
-  // 가입(참가 정보 입력 이동) 버튼
+
   // 가입(다음 단계 이동) 버튼
   $("#btn_member").on("click", function () {
     // 1. 필수 체크 (약관 1, 2번)
@@ -41,12 +41,10 @@ $(document).ready(function () {
       location.href = `./info.php?course=${courseId}&agree_rally=${agree_rally}&agree_info=${agree_info}&agree_market=${agree_market}`;
     } else {
       // [경로 B] id가 없으면 cors.php로 값 실어서 전송 (POST)
-      // 전송 전 hidden 필드에 값 세팅 필수!
       $("input[name='agree_rally']").val(agree_rally);
       $("input[name='agree_info']").val(agree_info);
       $("input[name='agree_market']").val(agree_market);
 
-      // 폼 전송
       $("form[name='agree_form']").submit();
     }
   });

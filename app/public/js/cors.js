@@ -2,7 +2,6 @@ $(document).ready(function () {
   const $list = $("#course_list");
   const $total = $("#total_price");
 
-  // 코스 불러오기
   function loadCourses() {
     $.ajax({
       url: "/api/courses.php",
@@ -74,7 +73,6 @@ $(document).ready(function () {
     updatePrice();
   });
 
-  // 버튼
   $("#btn_next").on("click", function () {
     const selected = $(".course-radio:checked");
 
@@ -86,11 +84,9 @@ $(document).ready(function () {
     $("#f_course").submit();
   });
 
-  // 취소 버튼
   $("#btn_cancel").on("click", function () {
     window.location.href = "./";
   });
 
-  // 실행
   loadCourses();
 });

@@ -2,7 +2,7 @@ $(document).ready(function () {
   $("#phone").on("input", function () {
     let value = $(this)
       .val()
-      .replace(/[^0-9]/g, ""); // 숫자만
+      .replace(/[^0-9]/g, "");
 
     if (value.length < 4) {
       $(this).val(value);
@@ -15,7 +15,6 @@ $(document).ready(function () {
     }
   });
 
-  // Enter 키 눌렀을 때 조회 버튼 클릭
   $("#name, #phone").on("keydown", function (e) {
     if (e.key === "Enter") {
       e.preventDefault();
@@ -27,7 +26,7 @@ $(document).ready(function () {
     const name = $("#name").val();
     const phone = $("#phone").val().replace(/-/g, "");
 
-    // 1. 이름 검증 (함수 합치기)
+    // 이름 검증
     const nameError = (function (val) {
       const korean = /^[가-힣]{2,10}$/;
       const english = /^[a-zA-Z]{2,20}$/;
@@ -44,9 +43,8 @@ $(document).ready(function () {
 
     const phoneWithHyphen = $("#phone").val();
 
-    // 2. 전화번호 검증 (함수 합치기)
+    // 전화번호 검증
     const phoneError = (function (val) {
-      // 하이픈 포함된 형식이 정확한지 체크
       const reg = /^010-\d{4}-\d{4}$/;
       if (!val) return "전화번호를 입력해주세요.";
       if (!reg.test(val)) return "연락처 형식은 010-0000-0000 입니다.";
@@ -58,9 +56,6 @@ $(document).ready(function () {
       $("#phone").focus();
       return;
     }
-
-    // 3. 검증 통과 후 로직 실행
-    const purePhone = phone.replace(/-/g, ""); // API 전송용 숫자만 추출
 
     // 기존 결과 숨기고 스켈레톤 표시
     $("#result").html("");

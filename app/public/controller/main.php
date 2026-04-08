@@ -57,7 +57,6 @@
         try {
             $this->dbh->beginTransaction();
 
-            // 주석 친 이유 해당 마감 체크 부분에서 잘못됨
             // 코스 인원 체크 + 락
             $sql = "
                 SELECT max_participants, 
@@ -80,7 +79,7 @@
                 throw new Exception('이미 신청된 정보입니다.');
             }
 
-            // 등록 INSERT
+            // 등록 
             $sql = "
                 INSERT INTO registrations 
                 (course_id, name, birth, gender, phone, email, size,

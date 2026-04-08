@@ -7,15 +7,14 @@ $(document).ready(function () {
       let courses = res.data;
       let html = "";
 
-      // 1. [추가] 마감된 코스를 뒤로 보내기 (정렬)
-      // remaining이 0 이하인 것(isFull)을 뒤로 보냅니다.
+      // 1. 마감된 코스 뒤로 보내기
       courses.sort((a, b) => {
         const remainingA = a.max_participants - a.registered;
         const remainingB = b.max_participants - b.registered;
         const isFullA = remainingA <= 0;
         const isFullB = remainingB <= 0;
 
-        return isFullA - isFullB; // false(0) < true(1) 이므로 마감이 뒤로 감
+        return isFullA - isFullB;
       });
 
       courses.forEach((c) => {
@@ -38,8 +37,7 @@ $(document).ready(function () {
 
         const progressColor = isFull ? "secondary" : badgeColor;
 
-        // 2. [수정] 버튼 클릭 시 이동 경로 추가 및 onclick 이벤트
-        // id를 파라미터로 넘겨야 할 수도 있으니 템플릿 리터럴에 반영
+        // 2. 버튼 클릭 시 이동 경로 추가 및 onclick 이벤트
         html += `
             <div class="col-md-6 col-lg-4 mb-4">
               <div class="card h-100 shadow-sm border-0 rounded-4 overflow-hidden course-card ${isFull ? "opacity-75 bg-light" : ""}" 

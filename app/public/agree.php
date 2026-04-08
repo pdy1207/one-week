@@ -143,7 +143,6 @@ require './layout/header.php';
         </div>
     </div>
 
-    <!-- 전체 동의 -->
     <div class="card shadow-sm rounded-4 mb-4 border-primary">
         <div class="card-body p-4">
 
@@ -157,7 +156,6 @@ require './layout/header.php';
         </div>
     </div>
 
-    <!-- 버튼 -->
     <div class="d-flex gap-3 mt-4">
         <button class="btn btn-primary w-50 py-2 fw-bold" id="btn_member">
             약관 동의하고 계속

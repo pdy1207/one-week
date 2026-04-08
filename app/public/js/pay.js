@@ -100,7 +100,6 @@ $(document).ready(function () {
           type: "POST",
           contentType: "application/json",
           data: JSON.stringify({
-            // ... (기존 데이터 로직 동일)
             course_id: $("input[name='course']").val(),
             name: $("input[name='name']").val(),
             birth: $("input[name='birth']").val(),
@@ -116,9 +115,7 @@ $(document).ready(function () {
             addr1: $("input[name='f_adress']").val(),
             addr2: $("input[name='f_adress2']").val(),
           }),
-          success: function (res) {
-            // 성공/실패 처리 (기존 로직 동일)
-          },
+          // success: function (res) {},
         });
 
         let count = 300;
@@ -126,7 +123,6 @@ $(document).ready(function () {
           count--;
           $("#countdown_num").text(count);
 
-          // 프로그레스 바 줄어들기
           const percent = (count / 300) * 100;
           $("#countdown_bar").css("width", percent + "%");
 
@@ -136,7 +132,6 @@ $(document).ready(function () {
           }
         }, 1000);
 
-        // 버튼 제거 (중복 결제 방지)
         $btn.remove();
       }
     }, delay);
