@@ -8,13 +8,13 @@
     }
 
     function format_phone($phone) {
-        $phone = preg_replace("/[^0-9]/", "", $phone); // 숫자만 남기기
+        $phone = preg_replace("/[^0-9]/", "", $phone); 
         $length = strlen($phone);
 
         switch($length) {
             case 11: // 010-1234-5678
                 return preg_replace("/([0-9]{3})([0-9]{4})([0-9]{4})/", "$1-$2-$3", $phone);
-            case 10: // 010-123-4567 또는 지역번호
+            case 10: 
                 return preg_replace("/([0-9]{3})([0-9]{3})([0-9]{4})/", "$1-$2-$3", $phone);
             default:
                 return $phone;
@@ -24,7 +24,7 @@
     // 1. 파라미터 및 검색 조건 설정
     $search = isset($_GET['search']) ? trim($_GET['search']) : '';
     $course_filter = isset($_GET['course_filter']) ? $_GET['course_filter'] : '';
-    $limit = 5; // 한 번에 보여줄 개수
+    $limit = 10; // 한 번에 보여줄 개수
 
     // 2. 검색 쿼리 구성
     $where = " WHERE 1=1";

@@ -83,65 +83,75 @@ $(document).ready(function () {
             return;
           }
 
+          function format_phone_js(phone) {
+            if (!phone) return "";
+            const clean = phone.replace(/[^0-9]/g, "");
+            if (clean.length === 11) {
+              return clean.replace(/(\d{3})(\d{4})(\d{4})/, "$1-$2-$3");
+            } else if (clean.length === 10) {
+              return clean.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3");
+            }
+            return phone;
+          }
+
           const d = res.data;
 
           $("#result").html(`
-            <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
-              <!-- 실제 조회 카드 내용 -->
-              <div class="bg-primary text-white p-3">
-                <h4 class="mb-0 fw-bold">참가 정보</h4>
-              </div>
-              <div class="card-body">
-                <div class="d-flex justify-content-between mb-2">
-                  <span class="text-muted">참가번호</span>
-                  <strong>${d.participant_code}</strong>
-                </div>
-                <div class="d-flex justify-content-between mb-2">
-                  <span class="text-muted">이름</span>
-                  <strong>${d.name}</strong>
-                </div>
-                <div class="d-flex justify-content-between mb-2">
-                  <span class="text-muted">전화번호</span>
-                  <strong>${d.phone}</strong>
-                </div>
-                <div class="d-flex justify-content-between mb-2">
-                  <span class="text-muted">코스</span>
-                  <div>${getCourseBadge(d.course_id)}</div>
-                </div>
-                <div class="d-flex justify-content-between mb-2">
-                  <span class="text-muted">기념품 사이즈</span>
-                  <strong>${d.size}</strong>
-                </div>
-                <div class="d-flex justify-content-between mb-2">
-                  <span class="text-muted">결제 상태</span>
-                  <span class="badge ${d.pay_complete == 1 ? "bg-success" : "bg-danger"}">
-                    ${d.pay_complete == 1 ? "완료" : "미완료"}
-                  </span>
-                </div>
-                <hr>
-                <div class="small text-muted d-flex justify-content-between">
-                  <div>주소</div>
-                  <div class="d-flex flex-column">
-                    <span class="text-end">${d.zipcode}</span>
-                    ${d.addr1} ${d.addr2}
+              <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+                  <div class="bg-primary text-white p-3">
+                      <h4 class="mb-0 fw-bold">참가 정보</h4>
                   </div>
-                </div>
-                <div class="small text-muted mt-2 d-flex justify-content-between">
-                  등록일
-                  <div>${d.created_at}</div>
-                </div>
-                <hr>
-                <div class="d-flex justify-content-between mb-2">
-                  <span>개인정보 수집 동의</span>${getAgreeBadge(d.agree_info)}
-                </div>
-                <div class="d-flex justify-content-between mb-2">
-                  <span>러닝 대회 참가 동의</span>${getAgreeBadge(d.agree_rally)}
-                </div>
-                <div class="d-flex justify-content-between mb-2">
-                  <span>이벤트/마케팅 동의</span>${getAgreeBadge(d.agree_market)}
-                </div>
+                  <div class="card-body">
+                      <div class="d-flex justify-content-between mb-2">
+                          <span class="text-muted">참가번호</span>
+                          <strong class="text-primary">${d.participant_code}</strong>
+                      </div>
+                      <div class="d-flex justify-content-between mb-2">
+                          <span class="text-muted">이름</span>
+                          <strong>${d.name}</strong>
+                      </div>
+                      <div class="d-flex justify-content-between mb-2">
+                          <span class="text-muted">전화번호</span>
+                          <strong>${format_phone_js(d.phone)}</strong>
+                      </div>
+                      <div class="d-flex justify-content-between mb-2">
+                          <span class="text-muted">코스</span>
+                          <div>${getCourseBadge(d.course_id)}</div>
+                      </div>
+                      <div class="d-flex justify-content-between mb-2">
+                          <span class="text-muted">기념품 사이즈</span>
+                          <strong>${d.size}</strong>
+                      </div>
+                      <div class="d-flex justify-content-between mb-2">
+                          <span class="text-muted">결제 상태</span>
+                          <span class="badge ${d.pay_complete == 1 ? "bg-success" : "bg-danger"}">
+                              ${d.pay_complete == 1 ? "완료" : "미완료"}
+                          </span>
+                      </div>
+                      <hr>
+                      <div class="small text-muted d-flex justify-content-between">
+                          <div>주소</div>
+                          <div class="text-end">
+                              <span class="d-block">[${d.zipcode}]</span>
+                              ${d.addr1} ${d.addr2}
+                          </div>
+                      </div>
+                      <div class="small text-muted mt-2 d-flex justify-content-between">
+                          등록일
+                          <div>${d.created_at}</div>
+                      </div>
+                      <hr>
+                      <div class="d-flex justify-content-between mb-2">
+                          <span class="small text-muted">개인정보 수집 동의</span>${getAgreeBadge(d.agree_info)}
+                      </div>
+                      <div class="d-flex justify-content-between mb-2">
+                          <span class="small text-muted">러닝 대회 참가 동의</span>${getAgreeBadge(d.agree_rally)}
+                      </div>
+                      <div class="d-flex justify-content-between mb-2">
+                          <span class="small text-muted">이벤트/마케팅 동의</span>${getAgreeBadge(d.agree_market)}
+                      </div>
+                  </div>
               </div>
-            </div>
           `);
         },
         error: function () {

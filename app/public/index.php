@@ -1,8 +1,10 @@
 <?php
+    require './controller/exit.php';
     $js_array = ['./js/main.js'];
     $g_title ='2026 MARATHON';
     $menu_code = '';
     require './layout/header.php';    
+    
 ?>
 
 <main class="d-flex flex-column bg-light">

@@ -74,3 +74,43 @@ ALTER TABLE registrations ADD participant_code VARCHAR(20) UNIQUE;
 
 ALTER TABLE registrations 
 ADD UNIQUE KEY unique_user (name, phone);
+
+SELECT course_id, name, birth, phone, email, SIZE, agree_rally, agree_info, agree_market, DATE_FORMAT(created_at, '%Y년 %m월 %d일 %H시 %i분') AS created_at, zipcode, addr1, addr2, pay_complete, participant_code  
+    FROM registrations
+    WHERE name = "박도영" AND phone = "01068119219"
+    LIMIT 1
+    
+     SELECT COUNT(*) 
+                FROM registrations 
+                WHERE name = "박도영" AND phone = "01068119219"
+                
+                
+                SELECT id, max_participants 
+                FROM courses 
+                WHERE id = 1 
+                FOR UPDATE
+                
+                
+SELECT count(r.id) AS registered, c.max_participants  
+FROM courses c 
+LEFT JOIN registrations r ON c.id  = r.course_id 
+WHERE c.id = 3
+
+SELECT max_participants, 
+       (max_participants - COUNT(r.id)) AS remaining
+FROM courses c
+LEFT JOIN registrations r ON c.id = r.course_id
+WHERE c.id = 3
+
+
+CREATE TABLE `admins` (
+    `id` INT AUTO_INCREMENT PRIMARY KEY,
+    `userid` VARCHAR(50) UNIQUE NOT NULL COMMENT '관리자 아이디',
+    `password` VARCHAR(255) NOT NULL COMMENT '비밀번호 (해시값)',
+    `admin_name` VARCHAR(50) NOT NULL COMMENT '관리자 이름',
+    `last_login` DATETIME COMMENT '마지막 로그인 일시',
+    `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+SELECT size, COUNT(*) as cnt FROM registrations GROUP BY size ORDER BY size
