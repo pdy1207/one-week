@@ -18,8 +18,6 @@ $allowed_pages = [
 
 // 만약 허용 목록에 없고, 실제 존재하는 파일도 아니라면 404
 if (!in_array($request_uri, $allowed_pages) && !file_exists($_SERVER['DOCUMENT_ROOT'] . $request_uri)) {
-    echo $_SERVER['DOCUMENT_ROOT'];
-    echo $request_uri;
     if(http_response_code(404)){
         include "./404.php";
         exit;
