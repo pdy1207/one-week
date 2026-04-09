@@ -83,9 +83,13 @@ $is_admin_mode = in_array($current_file, $admin_pages);
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Docs</a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="https://gem-hacksaw-4b1.notion.site/..." target="_blank">API
+                        <li><a class="dropdown-item"
+                                href="https://gem-hacksaw-4b1.notion.site/33a9c91d6b5780089d58c722bc9406dc?source=copy_link"
+                                target="_blank">API
                                 문서</a></li>
-                        <li><a class="dropdown-item" href="https://github.com/..." target="_blank">GitHub</a></li>
+                        <li><a class="dropdown-item"
+                                href="https://github.com/pdy1207/one-week-readme/blob/main/README.md"
+                                target="_blank">README.md</a></li>
                     </ul>
                 </li>
                 <li class="nav-item"><a href="../admin/logout.php" class="nav-link text-danger">Logout</a></li>

@@ -91,7 +91,7 @@ $(document).ready(function () {
                 <div class="card-footer bg-white border-0 pb-4 pt-0">
                   <button class="btn ${isFull ? "btn-secondary" : "btn-" + badgeColor} w-100 rounded-pill fw-bold" 
                           ${isFull ? "disabled" : `onclick="location.href='./agree.php?id=${c.id}'"`}>
-                    ${isFull ? "다음에 만나요 :(" : "지금 바로 신청하기 " + courseIcon}
+                    ${isFull ? "마감 되었습니다." : "지금 바로 신청하기 "}
                   </button>
                 </div>
               </div>

@@ -2,7 +2,7 @@
     $g_title = '관리자 로그인';
     require '../layout/header.php'; 
     
-    // $password = "qwer";
+    // $password = "admin";
     // $hash = password_hash($password, PASSWORD_DEFAULT);
 
     // echo "원문: " . $password . "<br>";
