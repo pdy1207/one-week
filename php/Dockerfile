@@ -1,7 +1,7 @@
 FROM php:7.4-fpm
 
 # 패키지 + PHP 확장
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install -y sendmail \
     unzip git curl libzip-dev zip \
     && docker-php-ext-install pdo pdo_mysql zip
 

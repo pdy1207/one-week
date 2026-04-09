@@ -5,6 +5,8 @@
 
 ## 사용 버전
 
+naver app primary : zcjb tgkx boll ariu
+
 - **부트스트랩**: 5.3.8
 - **부트스트랩 아이콘**: 1.11.1
 - **jQuery**: 3.7.1
