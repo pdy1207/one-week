@@ -28,9 +28,6 @@ $(document).ready(function () {
      코스 정보 불러오기
   ========================= */
   const course = $('input[name="course"]').val();
-  const agree_rally = $("#agree_rally").val();
-  const agree_info = $("#agree_info").val();
-  const agree_market = $("#agree_market").val();
 
   if (course) {
     $.ajax({
@@ -284,14 +281,14 @@ $(document).ready(function () {
       $("#name").focus();
       return false;
     }
-    if (!gender) {
-      alert("성별을 선택해주세요.");
-      return false;
-    }
     const birthMsg = checkAge(birth);
     if (birthMsg) {
       alert(birthMsg);
       $("#birth").focus();
+      return false;
+    }
+    if (!gender) {
+      alert("성별을 선택해주세요.");
       return false;
     }
     const phoneMsg = validatePhone(phone);

@@ -57,19 +57,19 @@
                     <h5 class="mb-3 fw-bold"><i class="bi bi-person-badge me-2 text-primary"></i>기본 정보</h5>
                     <div class="row g-3 mb-4">
                         <div class="col-md-6">
-                            <label class="form-label fw-semibold">이름</label>
+                            <label class="form-label fw-semibold"><span class="text-danger">*</span>이름</label>
                             <input type="text" name="name" id="name" class="form-control form-control-lg"
                                 placeholder="실명을 입력하세요">
                             <div id="name_error" class="text-danger small mt-1 d-none"></div>
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label fw-semibold">생년월일</label>
+                            <label class="form-label fw-semibold"><span class="text-danger">*</span>생년월일</label>
                             <input type="text" name="birth" id="birth" class="form-control form-control-lg"
                                 placeholder="YYYY-MM-DD">
                             <div id="birth_error" class="text-danger small mt-1 d-none"></div>
                         </div>
                         <div class="col-12">
-                            <label class="form-label fw-semibold d-block">성별</label>
+                            <label class="form-label fw-semibold d-block"><span class="text-danger">*</span>성별</label>
                             <div class="btn-group w-100" role="group">
                                 <input type="radio" class="btn-check" name="gender" id="M" value="M" autocomplete="off">
                                 <label class="btn btn-outline-primary py-2" for="M">남성 (Male)</label>
@@ -85,19 +85,20 @@
                     <h5 class="mb-3 fw-bold"><i class="bi bi-telephone me-2 text-primary"></i>연락처 및 옵션</h5>
                     <div class="row g-3 mb-4">
                         <div class="col-md-6">
-                            <label class="form-label fw-semibold">연락처</label>
+                            <label class="form-label fw-semibold"><span class="text-danger">*</span>연락처</label>
                             <input type="text" name="phone" id="phone" class="form-control form-control-lg"
                                 placeholder="010-0000-0000">
                             <div id="phone_error" class="text-danger small mt-1 d-none"></div>
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label fw-semibold">이메일</label>
+                            <label class="form-label fw-semibold"><span class="text-danger">*</span>이메일</label>
                             <input type="email" name="email" id="email" class="form-control form-control-lg"
                                 placeholder="example@mail.com">
                             <div id="email_error" class="text-danger small mt-1 d-none"></div>
                         </div>
                         <div class="col-12">
-                            <label class="form-label fw-semibold">기념품 사이즈 (T-Shirt)</label>
+                            <label class="form-label fw-semibold"><span class="text-danger">*</span>기념품 사이즈
+                                (T-Shirt)</label>
                             <select name="tshirt_size" class="form-select form-select-lg">
                                 <option value="" selected disabled>사이즈를 선택하세요</option>
                                 <option value="S">S (85)</option>
@@ -111,14 +112,15 @@
 
                     <hr class="my-5 opacity-10">
 
-                    <h5 class="mb-3 fw-bold"><i class="bi bi-geo-alt me-2 text-primary"></i>기념품 수령 주소</h5>
+                    <h5 class="mb-3 fw-bold"><i class="bi bi-geo-alt me-2 text-primary"></i><span
+                            class="text-danger">*</span>기념품 수령 주소</h5>
                     <div class="row g-2 mb-3">
                         <div class="col-8 col-md-4">
                             <input type="text" name="zipcode" id="zipcode" readonly
                                 class="form-control form-control-lg bg-white" placeholder="우편번호">
                         </div>
                         <div class="col-4 col-md-3">
-                            <button type="button" class="btn btn-dark btn-lg w-100" id="btn_zipcode">검색</button>
+                            <button type="button" class="btn btn-secondary btn-lg w-50" id="btn_zipcode">검색</button>
                         </div>
                     </div>
                     <div class="mb-3">
