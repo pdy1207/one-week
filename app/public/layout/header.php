@@ -79,7 +79,7 @@ $is_admin_mode = in_array($current_file, $admin_pages);
                 <li class="nav-item"><a href="../admin/details.php"
                         class="nav-link <?= ($menu_code === 'details') ? 'active' : '' ?>">접수 관리</a></li>
                 <li class="nav-item"><a href="../admin/send_message.php"
-                        class="nav-link <?= ($menu_code === 'send') ? 'active' : '' ?>">문자 발송</a></li>
+                        class="nav-link <?= ($menu_code === 'send') ? 'active' : '' ?>">발송 관리</a></li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Docs</a>
                     <ul class="dropdown-menu">

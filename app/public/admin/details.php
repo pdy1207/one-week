@@ -22,10 +22,9 @@
         }
     }
 
-    // 1. 파라미터 및 검색 조건 설정
     $search = isset($_GET['search']) ? trim($_GET['search']) : '';
     $course_filter = isset($_GET['course_filter']) ? $_GET['course_filter'] : '';
-    $limit = 10; // 한 번에 보여줄 개수
+    $limit = 10; 
 
     // 2. 검색 쿼리 구성
     $where = " WHERE 1=1";
@@ -40,7 +39,6 @@
         $params['course_filter'] = $course_filter;
     }
 
-    // 3. 초기 데이터 5개 조회
     $sql = "SELECT r.*, c.name as course_name 
             FROM registrations r 
             LEFT JOIN courses c ON r.course_id = c.id 
