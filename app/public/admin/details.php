@@ -1,4 +1,5 @@
 <?php
+    require '../controller/exit.php';
     session_start();
     require '../config/db.php'; 
 

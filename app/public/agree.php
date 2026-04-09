@@ -1,5 +1,5 @@
 <?php
-
+require './controller/exit.php';
 $js_array = ['./js/agree.js'];
 
 $g_title = '회원 약관 및 개인정보 취급방침 동의';

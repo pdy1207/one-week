@@ -1,7 +1,24 @@
 <?php
+// 1. 에러 출력 (문제 해결 후 주석 처리)
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 session_start();
 require '../config/db.php'; 
-require_once '/var/www/html/vendor/autoload.php';
+// require_once '/var/www/html/vendor/autoload.php'; 로컬 기준
+
+// 2. 경로 설정 (서버 절대 경로 확인됨)
+$base_dir = '/home/pdy/www';
+
+
+
+if (file_exists($base_dir . '/vendor/autoload.php')) {
+    require_once $base_dir . '/vendor/autoload.php';
+} else {
+    // 여기서 에러나면 진짜로 vendor 폴더 안에 autoload.php가 없는 겁니다.
+    die("에러: " . $base_dir . "/vendor/autoload.php 파일이 없습니다. 파일질라로 확인하세요.");
+}
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -58,7 +75,7 @@ try {
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
     $mail->Port       = 587;
     $mail->CharSet    = 'UTF-8';
-    $mail->setFrom('pdyme1207@gmail.com', '2026 마라톤 사무국');
+    $mail->setFrom('pdyme1207@gmail.com', '2026 마라톤 대표');
 
     foreach ($targets as $user) {
         if (empty($user['email'])) continue;
@@ -84,7 +101,7 @@ try {
                 <p style='font-size: 18px; color: #333; margin-bottom: 25px;'></p>
                 
 
-                 <div style='line-height: 1.8; color: #444; font-size: 15px; border-left: 4px solid #0d6efd; padding-left: 15px;'>
+                 <div style='line-height: 1.8; color: #444; font-size: 15px; padding-left: 15px;'>
                      {$formatted_msg}
                  </div>
                 
@@ -95,7 +112,7 @@ try {
 
             <div style='background-color: #f8f9fa; padding: 25px; text-align: center; font-size: 12px; color: #999; border-top: 1px solid #eee;'>
                 <p style='margin: 0;'>본 메일은 발신 전용이며 회신되지 않습니다.</p>
-                <p style='margin: 5px 0 0;'>대표전화: 02-1234-5678 | 2026 마라톤 사무국</p>
+                <p style='margin: 5px 0 0;'>대표전화: 02-1234-5678 | 2026 마라톤</p>
                 <p style='margin: 15px 0 0; opacity: 0.6;'>© 2026 Marathon Festival. All Rights Reserved.</p>
             </div>
         </div>";

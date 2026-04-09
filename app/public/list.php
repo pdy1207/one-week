@@ -1,5 +1,5 @@
 <?php
-
+    require './controller/exit.php';
     $js_array = ['./js/list.js'];
 
     $g_title = '접수 내역 조회';

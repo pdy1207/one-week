@@ -1,4 +1,5 @@
 <?php
+    require './controller/exit.php';
     $js_array = ['./js/info.js'];
     $g_title = '참가자 정보 입력';
     $menu_code = 'agree';

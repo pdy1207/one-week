@@ -1,4 +1,5 @@
 <?php
+require './controller/exit.php';
 $js_array = ['./js/cors.js'];
 $g_title = '마라톤 코스 선택';
 $menu_code = 'agree';

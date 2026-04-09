@@ -1,5 +1,5 @@
 <?php
-
+require './controller/exit.php';
 $js_array = ['./js/pay.js'];
 
 $g_title = '대회 코스 및 결제 정보';

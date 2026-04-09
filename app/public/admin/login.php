@@ -1,4 +1,5 @@
 <?php
+    require '../controller/exit.php';
     $g_title = '관리자 로그인';
     require '../layout/header.php'; 
     
