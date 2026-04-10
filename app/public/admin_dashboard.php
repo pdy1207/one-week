@@ -51,7 +51,7 @@
     </div>
 
     <div class="row mb-4">
-        <div class="col-7">
+        <div class="col-4">
             <div class="card border-0 shadow-sm rounded-4 p-3 mb-3">
                 <div class="d-flex align-items-center">
                     <div class="icon-box bg-primary-subtle text-primary rounded-3 p-3 me-3"><i
@@ -63,7 +63,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-5">
+        <div class="col-4">
             <div class="card border-0 shadow-sm rounded-4 p-3 mb-3">
                 <div class="d-flex align-items-center">
                     <div class="icon-box bg-success-subtle text-success rounded-3 p-3 me-3"><i
@@ -71,6 +71,18 @@
                     <div>
                         <p class="text-muted mb-1">결제 완료</p>
                         <h3 class="fw-bold mb-0"><?= number_format($summary['paid']) ?>명</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card border-0 shadow-sm rounded-4 p-3 mb-3">
+                <div class="d-flex align-items-center">
+                    <div class="icon-box bg-danger-subtle text-danger rounded-3 p-3 me-3"><i
+                            class="bi bi-exclamation-triangle-fill fs-3"></i></div>
+                    <div>
+                        <p class="text-muted mb-1">미 결제</p>
+                        <h3 class="fw-bold mb-0"><?= number_format($summary['unpaid']) ?>명</h3>
                     </div>
                 </div>
             </div>

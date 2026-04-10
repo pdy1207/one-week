@@ -158,8 +158,8 @@ function loadUsers() {
                             </small>
                         </td>
                         <td><span class="badge bg-light text-dark border">${user.course_name}</span></td>
-                        <td><span class="badge ${user.pay_status == 1 ? 'bg-success-subtle text-success' : 'bg-danger-subtle text-danger'}">
-                            ${user.pay_status == 1 ? '결제완료' : '미납'}</span>
+                        <td><span class="badge ${user.pay_complete == 1 ? 'bg-success-subtle text-success' : 'bg-danger-subtle text-danger'}">
+                            ${user.pay_complete == 1 ? '결제완료' : '미납'}</span>
                         </td>
                     </tr>`;
                 userList.insertAdjacentHTML('beforeend', row);
