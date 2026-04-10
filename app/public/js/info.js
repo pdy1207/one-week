@@ -107,41 +107,92 @@ $(document).ready(function () {
       .replace(/[^0-9]/g, "");
     if (v.length > 8) v = v.substring(0, 8);
 
+    // 자동 하이픈 포맷팅
     let formatted = "";
-    if (v.length >= 5)
+    if (v.length > 6) {
       formatted =
         v.substring(0, 4) + "-" + v.substring(4, 6) + "-" + v.substring(6, 8);
-    else if (v.length >= 3)
+    } else if (v.length > 4) {
       formatted = v.substring(0, 4) + "-" + v.substring(4);
-    else formatted = v;
+    } else {
+      formatted = v;
+    }
 
     $(this).val(formatted);
 
-    const msg = checkAge(formatted);
-    if (msg) {
-      $birthError.text(msg).removeClass("d-none");
-      $(this).addClass("is-invalid");
+    // 8자리가 완성되었을 때 정밀 검사
+    if (v.length === 8) {
+      const year = parseInt(v.substring(0, 4));
+      const month = parseInt(v.substring(4, 6));
+      const day = parseInt(v.substring(6, 8));
+      const today = new Date();
+
+      let errorMsg = "";
+
+      // 1. 기본 범위 및 유효성 체크
+      if (year < 1900 || year > today.getFullYear()) {
+        errorMsg = "연도는 1900년 이후, 현재 이전이어야 합니다.";
+      } else if (!isValidDate(year, month, day)) {
+        errorMsg = "유효하지 않은 날짜입니다.";
+      } else {
+        // 2. 날짜가 유효하다면 연령 제한(checkAge) 체크
+        // formatted 변수에는 이미 "YYYY-MM-DD" 형태로 저장되어 있습니다.
+        errorMsg = checkAge(formatted);
+      }
+
+      if (errorMsg) {
+        showError(errorMsg);
+      } else {
+        clearError();
+      }
     } else {
-      $birthError.text("").addClass("d-none");
-      $(this).removeClass("is-invalid");
+      clearError();
     }
   });
 
-  function checkAge(birth) {
-    const today = new Date("2026-04-02");
-    const b = new Date(birth);
+  // 에러 표시 및 제거 함수
+  function showError(msg) {
+    $birthError.text(msg).removeClass("d-none");
+    $birth.addClass("is-invalid");
+  }
 
-    if (!/^\d{4}-\d{2}-\d{2}$/.test(birth))
-      return "생년월일 형식이 올바르지 않습니다.";
+  function clearError() {
+    $birthError.text("").addClass("d-none");
+    $birth.removeClass("is-invalid");
+  }
+
+  // 실제 날짜 존재 여부 확인
+  function isValidDate(y, m, d) {
+    const dt = new Date(y, m - 1, d);
+    return (
+      dt.getFullYear() === y && dt.getMonth() + 1 === m && dt.getDate() === d
+    );
+  }
+
+  // 코스별 연령 제한 체크 함수
+  function checkAge(birthStr) {
+    // 기준일: 2026-04-02 (요청하신 코드 기준)
+    const today = new Date("2026-04-02");
+    const b = new Date(birthStr);
+
     if (isNaN(b.getTime())) return "유효하지 않은 날짜입니다.";
 
+    // 만 나이 계산
     let age = today.getFullYear() - b.getFullYear();
     const m = today.getMonth() - b.getMonth();
-    if (m < 0 || (m === 0 && today.getDate() < b.getDate())) age--;
+    if (m < 0 || (m === 0 && today.getDate() < b.getDate())) {
+      age--;
+    }
 
-    const course = Number($('input[name="course"]').val());
-    if (course === 5 && age < 18)
+    // 코스 선택 값 확인 (input name="course")
+    const course = Number(
+      $('input[name="course"]:checked').val() ||
+        $('input[name="course"]').val(),
+    );
+
+    if (course === 5 && age < 18) {
       return "Full 코스는 만 18세 이상만 참가 가능합니다.";
+    }
 
     return "";
   }
